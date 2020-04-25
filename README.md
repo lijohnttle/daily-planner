@@ -22,3 +22,12 @@ When user click a task, a menu shows up. It could include next options:
 - COMPLETE - marks the selected task as completed. It is purely for tracking progress within an interval. As soon as the interval is been passed, all tasks within it become marked as complete. Available only within active interval.
 - RESET - resets status of the selected task to unstarted. Available only within active interval.
 - START - marks the selected task as started. Available only within active interval.
+
+## AppBar
+
+![Image of AppBar](/design/mockups/AppBar.png)
+
+
+## Menu
+
+![Image of Menu](/design/mockups/Menu.png)
