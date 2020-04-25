@@ -24,11 +24,6 @@ When user click a task, a menu shows up. It could include next options:
 - START - marks the selected task as started. Available only within active interval.
 
 
-## AppBar
-
-![Image of AppBar](/design/mockups/AppBar.png)
-
-
 ## Menu
 
 ![Image of Menu](/design/mockups/Menu.png)
