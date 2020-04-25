@@ -10,9 +10,11 @@
   - *Duration* - the time that should be spent on the task.
   - *Priority* - the priority of the task. Possible values: *High*, *Optional*.
 - [ ] To configure predefined lists of tasks.
-- [ ] To suspend all notifications.
+- [ ] To suspend all notifications: **indefinitely**, **for today**, **next hour**
 
 ## Active List
+
+![Image of ActiveList](/design/mockups/ActiveList.png)
 
 On the **active list** screen all active and future tasks are displayed.
 
