@@ -13,11 +13,11 @@
 - [ ] To suspend all notifications: **indefinitely**, **for today**, **next hour**
 
 
-## Active List
+## Tasks
 
 ![Image of Tasks Screen](/design/mockups/TasksScreen.png)
 
-On the **active list** screen all active and future tasks are displayed.
+On the **tasks** screen all active and future tasks are displayed.
 
 When user click a task, a menu shows up. It could include next options:
 - COMPLETE - marks the selected task as completed. It is purely for tracking progress within an interval. As soon as the interval is been passed, all tasks within it become marked as complete. Available only within active interval.
@@ -38,3 +38,8 @@ When user click a task, a menu shows up. It could include next options:
 ## Schedule Builder
 
 ![Image of ScheduleBuilder - Days Screen](/design/mockups/ScheduleBuilder_Days.png)
+
+![Image of ScheduleBuilder - Intervals Screen](/design/mockups/ScheduleBuilder_Intervals.png)
+
+![Image of ScheduleBuilder - Tasks Screen](/design/mockups/ScheduleBuilder_Tasks.png)
+
