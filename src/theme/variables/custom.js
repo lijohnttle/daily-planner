@@ -59,31 +59,31 @@ export default {
     return this.brandPrimary;
   },
   get buttonPrimaryColor() {
-    return this.inverseTextColor;
+    return this.textColor;
   },
   get buttonInfoBg() {
     return this.brandInfo;
   },
   get buttonInfoColor() {
-    return this.inverseTextColor;
+    return this.textColor;
   },
   get buttonSuccessBg() {
     return this.brandSuccess;
   },
   get buttonSuccessColor() {
-    return this.inverseTextColor;
+    return this.textColor;
   },
   get buttonDangerBg() {
     return this.brandDanger;
   },
   get buttonDangerColor() {
-    return this.inverseTextColor;
+    return this.textColor;
   },
   get buttonWarningBg() {
     return this.brandWarning;
   },
   get buttonWarningColor() {
-    return this.inverseTextColor;
+    return this.textColor;
   },
   get buttonTextSize() {
     return this.fontSizeBase - 1;
@@ -129,7 +129,7 @@ export default {
   brandDanger: '#d9534f',
   brandWarning: '#f0ad4e',
   brandDark: '#000',
-  brandLight: '#a9a9a9',
+  brandLight: '#2b2c32',
 
   // Container
   containerBgColor: '#24252b',
