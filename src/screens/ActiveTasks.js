@@ -1,6 +1,7 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, Text } from 'react-native';
 import { Container, Header, Content, Body, Title } from 'native-base';
+import { ActiveTasksList } from '../components/ActiveTasksList';
 
 const styles = StyleSheet.create({
     header: {
@@ -14,16 +15,15 @@ class ActiveTasks extends React.Component {
             <Container>
                 <Header style={styles.header}>
                     <Body>
-                        <Title>Hello</Title>
+                        <Title>Daily Planner</Title>
                     </Body>
                 </Header>
 
                 <Content>
                     <SafeAreaView>
-                        <ScrollView
-                            contentInsetAdjustmentBehavior="automatic">
+                        <ScrollView contentInsetAdjustmentBehavior="automatic">
                             <View>
-                                
+                                <ActiveTasksList />
                             </View>
                         </ScrollView>
                     </SafeAreaView>
