@@ -12,13 +12,18 @@
 - [ ] To suspend all notifications: **indefinitely**, **for today**, **next hour**
 
 
-## Tasks
+## Active Tasks
 
 ![Image of Tasks Screen](/design/mockups/TasksScreen.png)
 
-On the **tasks** screen all active and future tasks are displayed.
+All active and near future tasks are displayed on the **active tasks** screen.
 
-When user click a task, a menu shows up. It could include next options:
+A task has next statuses:
+- PENDING - the task is waiting for its execution;
+- ACTIVE - the task in progress;
+- DONE - the task is done.
+
+When user clicks on a task, a menu shows up. It could include next options:
 - COMPLETE - marks the selected task as completed. It is purely for tracking progress within an interval. As soon as the interval is been passed, all tasks within it become marked as complete. Available only within active interval.
 - RESET - resets status of the selected task to unstarted. Available only within active interval.
 - START - marks the selected task as started. Available only within active interval.
