@@ -1,7 +1,7 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, Text } from 'react-native';
 import { Container, Header, Content, Body, Title } from 'native-base';
-import { ActiveTasksList } from '../components/ActiveTasksList';
+import { ActiveTasksList } from '../components/activeTasks/ActiveTasksList';
 
 const styles = StyleSheet.create({
     header: {

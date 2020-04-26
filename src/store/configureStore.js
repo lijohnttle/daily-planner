@@ -1,11 +1,13 @@
   
 import { createStore, combineReducers } from 'redux';
-import taskGroups from '../ducks/taskGroups';
-import tasks from '../ducks/tasks';
+import daysReducer from '../ducks/days';
+import taskGroupsReducer from '../ducks/taskGroups';
+import tasksReducer from '../ducks/tasks';
 
 const reducer = combineReducers({
-    taskGroups: taskGroups,
-    tasks: tasks
+    days: daysReducer,
+    taskGroups: taskGroupsReducer,
+    tasks: tasksReducer,
 });
 
 const configureStore = initialState => createStore(reducer, initialState);

@@ -142,9 +142,9 @@ export default {
   fabWidth: 56,
 
   // Font
-  DefaultFontSize: 16,
+  DefaultFontSize: 14,
   fontFamily: 'Roboto',
-  fontSizeBase: 15,
+  fontSizeBase: 14,
   get fontSizeH1() {
     return this.fontSizeBase * 1.8;
   },
@@ -261,8 +261,9 @@ export default {
   tabFontSize: 15,
 
   // Text
-  textColor: '#000',
-  inverseTextColor: '#fff',
+  textColor: 'white',
+  disabledTextColor: '#767779',
+  inverseTextColor: 'black',
   noteFontSize: 14,
   get defaultTextColor() {
     return this.textColor;

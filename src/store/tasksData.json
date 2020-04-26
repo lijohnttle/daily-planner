@@ -1,60 +1,48 @@
 {
+    "version": "1.0",
+    "days": [
+        {
+            "id": "1",
+            "name": "Monday",
+            "type": "DayOfTheWeek"
+        },
+        {
+            "id": "2",
+            "name": "Tuesday",
+            "type": "DayOfTheWeek"
+        },
+        {
+            "id": "3",
+            "name": "Wednesday",
+            "type": "DayOfTheWeek"
+        },
+        {
+            "id": "4",
+            "name": "Thursday",
+            "type": "DayOfTheWeek"
+        },
+        {
+            "id": "5",
+            "name": "Friday",
+            "type": "DayOfTheWeek"
+        },
+        {
+            "id": "6",
+            "name": "Saturday",
+            "type": "DayOfTheWeek"
+        },
+        {
+            "id": "7",
+            "name": "Sunday",
+            "type": "DayOfTheWeek"
+        }
+    ],
     "taskGroups": [
         {
             "id": 1,
-            "name": "Monday",
-            "type": "DayOfTheWeek",
-            "options": {
-                "day": "Mon"
-            }
-        },
-        {
-            "id": 2,
-            "name": "Tuesday",
-            "type": "DayOfTheWeek",
-            "options": {
-                "day": "Tue"
-            }
-        },
-        {
-            "id": 3,
-            "name": "Wednesday",
-            "type": "DayOfTheWeek",
-            "options": {
-                "day": "Wed"
-            }
-        },
-        {
-            "id": 4,
-            "name": "Thursday",
-            "type": "DayOfTheWeek",
-            "options": {
-                "day": "Thu"
-            }
-        },
-        {
-            "id": 5,
-            "name": "Friday",
-            "type": "DayOfTheWeek",
-            "options": {
-                "day": "Fri"
-            }
-        },
-        {
-            "id": 6,
-            "name": "Saturday",
-            "type": "DayOfTheWeek",
-            "options": {
-                "day": "Sat"
-            }
-        },
-        {
-            "id": 7,
-            "name": "Sunday",
-            "type": "DayOfTheWeek",
-            "options": {
-                "day": "Sun"
-            }
+            "intervalFrom": "05:00",
+            "intervalTo": "08:30",
+            "dayId": 1
         }
     ],
     "tasks": [
