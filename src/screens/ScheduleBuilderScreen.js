@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, ScrollView } from 'react-native';
 import { Container, Header, Content, Body, Title, Left, Button, View, Text } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import variables from '../theme/variables/custom';
+import { DaysList } from '../components/scheduleBuilder/DaysList';
 
 const styles = StyleSheet.create({
     header: {
@@ -28,7 +29,7 @@ export const ScheduleBuilderScreen = ({ navigation }) => {
                 <SafeAreaView>
                     <ScrollView contentInsetAdjustmentBehavior="automatic">
                         <View>
-                            <Text>Schedule Builder</Text>
+                            <DaysList />
                         </View>
                     </ScrollView>
                 </SafeAreaView>
