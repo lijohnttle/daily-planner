@@ -1,3 +1,3 @@
-export default DaysReducer = (state = {}, action) => {
+export default DaysReducer = (state = [], action) => {
     return state;
 };

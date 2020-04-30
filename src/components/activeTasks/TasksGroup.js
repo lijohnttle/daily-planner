@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     }
 });
 
-const TasksGroup = ({ taskGroup }) => {
+export const TasksGroup = ({ taskGroup }) => {
     return (
         <View style={styles.root}>
             <Text style={styles.header}>
@@ -27,5 +27,3 @@ const TasksGroup = ({ taskGroup }) => {
         </View>
     )
 };
-
-export { TasksGroup };

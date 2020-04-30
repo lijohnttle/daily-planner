@@ -1,3 +1,3 @@
-export default TaskGroupsReducer = (state = {}, action) => {
+export default TaskGroupsReducer = (state = [], action) => {
     return state;
 };

@@ -4,4 +4,5 @@ export default loadState = () => ({
     days: tasksData.days,
     taskGroups: tasksData.taskGroups,
     tasks: tasksData.tasks,
+    taskStatuses: { }
 });

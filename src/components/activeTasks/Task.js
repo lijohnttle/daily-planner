@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableHighlight } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Text, View, Button } from 'native-base';
 import variables from '../../theme/variables/custom';
 import { msToHHmm } from '../../utils/dateTimeHelper';
 import Icon from 'react-native-vector-icons/AntDesign';
 import TaskStatuses from '../../constants/TaskStatuses';
+import { TaskCommands } from './TaskCommands';
+import { changeTaskStatus } from '../../ducks/taskStatuses';
+import { useSelector, useDispatch } from 'react-redux';
 
 const styles = StyleSheet.create({
     root: {
@@ -18,14 +21,6 @@ const styles = StyleSheet.create({
         paddingLeft: 8,
         paddingRight: 8,
         marginBottom: 0,
-        height: 48,
-    },
-    button: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        marginTop: 2,
-        marginBottom: 8,
         height: 48,
     },
     name: {
@@ -44,29 +39,48 @@ const styles = StyleSheet.create({
     }
 });
 
-const getTaskCommands = taskStatus => {
+const getTaskCommands = (taskId, taskStatus, dispatch) => {
+    const commands = [];
+
     if (taskStatus === TaskStatuses.PENDING) {
-        return [
-            { text: "START" },
-            { text: "COMPLETE" }
-        ];
+        commands.push(
+            {
+                id: 'start',
+                text: "START",
+                action: () => dispatch(changeTaskStatus(taskId, TaskStatuses.ACTIVE)),
+            },
+        );
     }
-    if (taskStatus === TaskStatuses.ACTIVE) {
-        return [
-            { text: "COMPLETE" }
-        ];
+
+    if (taskStatus === TaskStatuses.PENDING || taskStatus === TaskStatuses.ACTIVE) {
+        commands.push(
+            {
+                id: 'complete',
+                text: "COMPLETE",
+                action: () => dispatch(changeTaskStatus(taskId, TaskStatuses.DONE)),
+            },
+        );
     }
+
     if (taskStatus === TaskStatuses.DONE) {
-        return [
-            { text: "RESET" }
-        ];
+        commands.push(
+            {
+                id: 'reset',
+                text: "RESET",
+                action: () => dispatch(changeTaskStatus(taskId, TaskStatuses.PENDING)),
+            },
+        );
     }
+
+    return commands;
 };
 
-const Task = ({ task, withinActiveGroup }) => {
+export const Task = ({ task, withinActiveGroup }) => {
+    const taskStatus = useSelector(state => state.taskStatuses[task.id] || TaskStatuses.PENDING);
+    const dispatch = useDispatch();
     const [isPressed, press] = useState(false);
-
-    task.status = TaskStatuses.DONE;
+    
+    const taskCommands = withinActiveGroup && isPressed ? getTaskCommands(task.id, taskStatus, dispatch) : [];
 
     return (
         <View style={styles.root}>
@@ -80,22 +94,14 @@ const Task = ({ task, withinActiveGroup }) => {
                     <Text style={styles.duration}>{task.duration ? msToHHmm(task.duration) : '—:—'}</Text>
 
                     <View style={styles.status}>
-                        {task.status === TaskStatuses.DONE ? <Icon name="checkcircle" size={24} color={variables.disabledTextColor} /> : null}
+                        {taskStatus === TaskStatuses.DONE ? <Icon name="checkcircle" size={24} color={variables.disabledTextColor} /> : null}
                         
-                        {task.status === TaskStatuses.ACTIVE ? <Icon name="clockcircle" size={24} color={variables.disabledTextColor} /> : null}
+                        {taskStatus === TaskStatuses.ACTIVE ? <Icon name="clockcircle" size={24} color={variables.brandSuccess} /> : null}
                     </View>
                 </>
             </Button>
 
-            {withinActiveGroup && isPressed ? getTaskCommands(task.status).map(command => (
-                <Button key={command.text} light style={styles.button}>
-                    <Text style={{ color: variables.defaultTextColor }}>
-                        {command.text}
-                    </Text>
-                </Button>
-            )) : null}
+            <TaskCommands commands={taskCommands} />
         </View>
     );
 };
-
-export { Task };
