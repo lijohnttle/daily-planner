@@ -1,3 +1,4 @@
 export default {
-    ActiveLinks: 'ActiveLinks'
+    ActiveTasks: 'ActiveTasks',
+    ScheduleBuilder: 'ScheduleBuilder',
 };

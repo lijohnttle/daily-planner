@@ -1,22 +1,43 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { ActiveTasks } from '../screens/ActiveTasks';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { ActiveTasksScreen } from '../screens/ActiveTasksScreen';
+import { ScheduleBuilderScreen } from '../screens/ScheduleBuilderScreen';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import variables from '../theme/variables/custom';
 import RootRoutes from './RootRoutes';
 
-const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 const RootNavigator = () => {
     return (
-        <Stack.Navigator
-            initialRouteName={RootRoutes.ActiveLinks}
+        <Drawer.Navigator
+            initialRouteName={RootRoutes.ActiveTasks}
             headerMode="screen"
             screenOptions={{
                 headerShown: false
+            }}
+            drawerStyle={{
+                backgroundColor: variables.containerBgColor,
+            }}
+            drawerContentOptions={{
+                inactiveTintColor: variables.textColor,
+                activeTintColor: variables.textColor,
             }}>
-            <Stack.Screen
-                name={RootRoutes.ActiveLinks}
-                component={ActiveTasks} />
-        </Stack.Navigator>
+            <Drawer.Screen
+                name={RootRoutes.ActiveTasks}
+                component={ActiveTasksScreen}
+                options={{
+                    drawerIcon: ({ size, color }) => <Icon name="home" size={size} color={color} />,
+                    title: 'HOME'
+                }} />
+            <Drawer.Screen
+                name={RootRoutes.ScheduleBuilder}
+                component={ScheduleBuilderScreen}
+                options={{
+                    drawerIcon: ({ size, color }) => <Icon name="edit" size={size} color={color} />,
+                    title: 'SCHEDULE BUILDER'
+                }} />
+        </Drawer.Navigator>
     )
 };
 
