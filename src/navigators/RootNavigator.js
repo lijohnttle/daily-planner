@@ -35,7 +35,8 @@ const RootNavigator = () => {
                 component={ScheduleBuilderScreen}
                 options={{
                     drawerIcon: ({ size, color }) => <Icon name="edit" size={size} color={color} />,
-                    title: 'SCHEDULE BUILDER'
+                    title: 'SCHEDULE BUILDER',
+                    swipeEnabled: false,
                 }} />
         </Drawer.Navigator>
     )
