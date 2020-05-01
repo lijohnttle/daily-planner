@@ -4,9 +4,10 @@ import { Header, Body, Title, Left, Button } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { createStackNavigator } from '@react-navigation/stack';
 import variables from '../theme/variables/custom';
-import { ScheduleBuilderDaysScreen } from '../screens/ScheduleBuilderDaysScreen';
-import { ScheduleBuilderTaskGroupsScreen } from '../screens/ScheduleBuilderTaskGroupsScreen';
+import { ScheduleBuilderScreen } from '../screens/ScheduleBuilderScreen';
+import { ScheduleBuilderDayScreen } from '../screens/ScheduleBuilderDayScreen';
 import ScheduleBuilderRoutes from './ScheduleBuilderRoutes';
+import { ScheduleBuilderTaskGroupScreen } from '../screens/ScheduleBuilderTaskGroupScreen';
 
 const styles = StyleSheet.create({
     header: {
@@ -16,61 +17,60 @@ const styles = StyleSheet.create({
 
 const Stack = createStackNavigator();
 
-export const ScheduleBuilderNavigator = ({ navigation }) => {
+const getHeaderWithMenuButton = props => (
+    <Header style={styles.header}>
+        <Left>
+            <Button light transparent onPress={props.navigation.openDrawer}>
+                <Icon name='bars' color={variables.textColor} size={24} />
+            </Button>
+        </Left>
+        <Body>
+            <Title>{props.scene.descriptor.options.title}</Title>
+        </Body>
+    </Header>
+);
+
+const getHeaderWithBackButton = props => (
+    <Header style={styles.header}>
+        <Left>
+            <Button light transparent onPress={() => props.navigation.pop()}>
+                <Icon name='chevron-left' color={variables.textColor} size={24} />
+            </Button>
+        </Left>
+        <Body>
+            <Title>{props.scene.descriptor.options.title}</Title>
+        </Body>
+    </Header>
+);
+
+const getScreenOptions = header => {
+    return {
+        title: 'Schedule Builder',
+        animationEnabled: false,
+        headerStyle: {
+            backgroundColor: variables.headerStyle,
+        },
+        header: header,
+    };
+};
+
+export const ScheduleBuilderNavigator = () => {
     return (
         <Stack.Navigator
             initialRouteName={ScheduleBuilderRoutes.DaysList}
             headerMode="float">
             <Stack.Screen
                 name={ScheduleBuilderRoutes.DaysList}
-                component={ScheduleBuilderDaysScreen}
-                options={{
-                    title: 'Daily Planner',
-                    animationEnabled: false,
-                    headerStyle: {
-                        backgroundColor: variables.headerStyle,
-                    },
-                    header: (props) => {
-                        return (
-                            <Header style={styles.header}>
-                                <Left>
-                                    <Button light transparent onPress={navigation.openDrawer}>
-                                        <Icon name='bars' color={variables.textColor} size={24} />
-                                    </Button>
-                                </Left>
-                                <Body>
-                                    <Title>{props.scene.descriptor.options.title}</Title>
-                                </Body>
-                            </Header>
-
-                        );
-                    },
-                }} />
-                <Stack.Screen
-                    name={ScheduleBuilderRoutes.TaskGroupsList}
-                    component={ScheduleBuilderTaskGroupsScreen}
-                    options={{
-                        title: 'Daily Planner',
-                        animationEnabled: false,
-                        headerStyle: {
-                            backgroundColor: variables.headerStyle,
-                        },
-                        header: (props) => {
-                            return (
-                                <Header style={styles.header}>
-                                    <Left>
-                                        <Button light transparent onPress={() => props.navigation.pop()}>
-                                            <Icon name='chevron-left' color={variables.textColor} size={24} />
-                                        </Button>
-                                    </Left>
-                                    <Body>
-                                        <Title>{props.scene.descriptor.options.title}</Title>
-                                    </Body>
-                                </Header>
-
-                            );
-                        },
-                }} />
+                component={ScheduleBuilderScreen}
+                options={getScreenOptions(getHeaderWithMenuButton)} />
+            <Stack.Screen
+                name={ScheduleBuilderRoutes.Day}
+                component={ScheduleBuilderDayScreen}
+                options={getScreenOptions(getHeaderWithBackButton)} />
+            <Stack.Screen
+                name={ScheduleBuilderRoutes.TaskGroup}
+                component={ScheduleBuilderTaskGroupScreen}
+                options={getScreenOptions(getHeaderWithBackButton)} />
         </Stack.Navigator>
     );
 };

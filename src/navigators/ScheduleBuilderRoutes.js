@@ -1,4 +1,5 @@
 export default {
     DaysList: 'DaysList',
-    TaskGroupsList: 'TaskGroupsList',
+    Day: 'TaskGroupsList',
+    TaskGroup: 'TaskGroup',
 };

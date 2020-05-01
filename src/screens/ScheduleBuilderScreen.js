@@ -1,9 +1,9 @@
 import React from 'react';
 import { SafeAreaView, ScrollView } from 'react-native';
 import { Container, Content, View } from 'native-base';
-import { DaysList } from '../components/scheduleBuilder/DaysList';
+import { DaysList } from '../components/scheduleBuilder/days/DaysList';
 
-export const ScheduleBuilderDaysScreen = () => {
+export const ScheduleBuilderScreen = () => {
     return (
         <Container>
             <Content>

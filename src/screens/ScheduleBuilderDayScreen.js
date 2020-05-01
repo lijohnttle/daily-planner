@@ -1,9 +1,9 @@
 import React from 'react';
 import { SafeAreaView, ScrollView } from 'react-native';
 import { Container, Content, View } from 'native-base';
-import { TaskGroupsList } from '../components/scheduleBuilder/TaskGroupsList';
+import { TaskGroupsList } from '../components/scheduleBuilder/taskGroups/TaskGroupsList';
 
-export const ScheduleBuilderTaskGroupsScreen = () => {
+export const ScheduleBuilderDayScreen = () => {
     return (
         <Container>
             <Content>

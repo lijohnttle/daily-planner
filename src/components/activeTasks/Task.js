@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingLeft: 8,
         paddingRight: 8,
-        marginBottom: 0,
         height: 48,
     },
     name: {
@@ -34,9 +33,6 @@ const styles = StyleSheet.create({
     status: {
         width: 32,
     },
-    inverseTextColor: {
-        color: variables.inverseTextColor,
-    }
 });
 
 const getTaskCommands = (taskId, taskStatus, dispatch) => {
