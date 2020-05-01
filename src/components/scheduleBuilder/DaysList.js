@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 });
 
 export const DaysList = () => {
-    const days = useSelector(state => state.days);
+    const days = useSelector(state => state.days.list);
     const navigation = useNavigation();
 
     return (
@@ -34,7 +34,7 @@ export const DaysList = () => {
             </Text>
 
             {days.map(day => (
-                <Button key={day.id} light style={styles.dayButton} onPress={() => navigation.push(ScheduleBuilderRoutes.TaskGroupsList)}>
+                <Button key={day.id} light style={styles.dayButton} onPress={() => navigation.push(ScheduleBuilderRoutes.TaskGroupsList, { day })}>
                     <Text style={{ color: variables.defaultTextColor }}>
                         {day.name}
                     </Text>

@@ -1,17 +1,17 @@
   
 import { createStore, combineReducers } from 'redux';
-import daysReducer from '../ducks/days';
-import taskGroupsReducer from '../ducks/taskGroups';
-import tasksReducer from '../ducks/tasks';
+import { reducer as DaysReducer } from '../ducks/days';
+import { reducer as TaskGroupsReducer } from '../ducks/taskGroups';
+import { reducer as TasksReducer } from '../ducks/tasks';
 import { reducer as TaskStatusesReducer } from '../ducks/taskStatuses';
 
 const reducer = combineReducers({
-    days: daysReducer,
-    taskGroups: taskGroupsReducer,
-    tasks: tasksReducer,
+    days: DaysReducer,
+    taskGroups: TaskGroupsReducer,
+    tasks: TasksReducer,
     taskStatuses: TaskStatusesReducer,
 });
 
-const configureStore = initialState => createStore(reducer, initialState);
+const configureStore = () => createStore(reducer);
 
 export default configureStore;

@@ -2,7 +2,7 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, ScrollView } from 'react-native';
 import { Container, Header, Content, Body, Title, Left, Button, View } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { ActiveTasksList } from '../components/activeTasks/ActiveTasksList';
+import { DaysList } from '../components/activeTasks/DaysList';
 import variables from '../theme/variables/custom';
 
 const styles = StyleSheet.create({
@@ -29,7 +29,7 @@ export const ActiveTasksScreen = ({ navigation }) => {
                 <SafeAreaView>
                     <ScrollView contentInsetAdjustmentBehavior="automatic">
                         <View>
-                            <ActiveTasksList />
+                            <DaysList />
                         </View>
                     </ScrollView>
                 </SafeAreaView>

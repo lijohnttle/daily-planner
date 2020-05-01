@@ -7,9 +7,8 @@ import { StyleProvider } from 'native-base';
 import getTheme from './theme/components/index';
 import custom from './theme/variables/custom';
 import configureStore from './store/configureStore';
-import loadState from './store/initialState';
 
-const store = configureStore(loadState());
+const store = configureStore();
 
 const App: () => React$Node = () => {
     return (
