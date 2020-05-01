@@ -3,6 +3,8 @@ import { StyleSheet } from 'react-native';
 import { View, Text, Button } from 'native-base';
 import { useSelector } from 'react-redux';
 import variables from '../../theme/variables/custom';
+import ScheduleBuilderRoutes from '../../navigators/ScheduleBuilderRoutes';
+import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
     root: {
@@ -23,6 +25,7 @@ const styles = StyleSheet.create({
 
 export const DaysList = () => {
     const days = useSelector(state => state.days);
+    const navigation = useNavigation();
 
     return (
         <View style={styles.root}>
@@ -31,7 +34,7 @@ export const DaysList = () => {
             </Text>
 
             {days.map(day => (
-                <Button key={day.id} light style={styles.dayButton}>
+                <Button key={day.id} light style={styles.dayButton} onPress={() => navigation.push(ScheduleBuilderRoutes.TaskGroupsList)}>
                     <Text style={{ color: variables.defaultTextColor }}>
                         {day.name}
                     </Text>

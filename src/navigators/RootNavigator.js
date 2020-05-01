@@ -1,7 +1,7 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { ActiveTasksScreen } from '../screens/ActiveTasksScreen';
-import { ScheduleBuilderScreen } from '../screens/ScheduleBuilderScreen';
+import { ScheduleBuilderNavigator } from './ScheduleBuilderNavigator';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import variables from '../theme/variables/custom';
 import RootRoutes from './RootRoutes';
@@ -12,7 +12,6 @@ const RootNavigator = () => {
     return (
         <Drawer.Navigator
             initialRouteName={RootRoutes.ActiveTasks}
-            headerMode="screen"
             screenOptions={{
                 headerShown: false
             }}
@@ -32,7 +31,7 @@ const RootNavigator = () => {
                 }} />
             <Drawer.Screen
                 name={RootRoutes.ScheduleBuilder}
-                component={ScheduleBuilderScreen}
+                component={ScheduleBuilderNavigator}
                 options={{
                     drawerIcon: ({ size, color }) => <Icon name="edit" size={size} color={color} />,
                     title: 'SCHEDULE BUILDER',
