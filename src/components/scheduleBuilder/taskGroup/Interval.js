@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     }
 });
 
-export const Interval = ({ taskGroup, deleteTaskGroup }) => {
+export const Interval = ({ taskGroup, onDeleteTaskGroup }) => {
     return (
         <View style={styles.root}>
             <View style={styles.headerContainer}>
@@ -46,7 +46,7 @@ export const Interval = ({ taskGroup, deleteTaskGroup }) => {
                     INTERVAL
                 </Text>
 
-                <Button danger onPress={deleteTaskGroup}>
+                <Button danger onPress={onDeleteTaskGroup}>
                     <Icon name="trash" type="FontAwesome" style={{ color: variables.textColor }} />
                 </Button>
             </View>
