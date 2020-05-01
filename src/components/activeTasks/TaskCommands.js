@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         marginTop: 2,
         marginBottom: 0,
-        height: 48,
+        height: variables.inputHeightBase,
     }
 });
 

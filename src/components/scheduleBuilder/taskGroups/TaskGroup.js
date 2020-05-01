@@ -7,19 +7,17 @@ import ScheduleBuilderRoutes from '../../../navigators/ScheduleBuilderRoutes';
 
 const styles = StyleSheet.create({
     root: {
-        marginLeft: 8,
-        marginRight: 8,
         marginBottom: 2,
     },
     taskGroupButton: {
-        flexDirection: "row",
-        alignItems: "center",
+        flexDirection: 'row',
+        alignItems: 'center',
         height: 48,
     },
     intervalPart: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
         flex: 1,
         paddingLeft: 8,
         paddingRight: 8,

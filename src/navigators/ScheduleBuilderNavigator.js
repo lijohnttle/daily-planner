@@ -4,10 +4,12 @@ import { Header, Body, Title, Left, Button } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { createStackNavigator } from '@react-navigation/stack';
 import variables from '../theme/variables/custom';
+import ScheduleBuilderRoutes from './ScheduleBuilderRoutes';
 import { ScheduleBuilderScreen } from '../screens/ScheduleBuilderScreen';
 import { ScheduleBuilderDayScreen } from '../screens/ScheduleBuilderDayScreen';
-import ScheduleBuilderRoutes from './ScheduleBuilderRoutes';
 import { ScheduleBuilderTaskGroupScreen } from '../screens/ScheduleBuilderTaskGroupScreen';
+import { ScheduleBuilderTaskMenuScreen } from '../screens/ScheduleBuilderTaskMenuScreen';
+import { ScheduleBuilderTaskGroupMenuScreen } from '../screens/ScheduleBuilderTaskGroupMenuScreen';
 
 const styles = StyleSheet.create({
     header: {
@@ -70,6 +72,14 @@ export const ScheduleBuilderNavigator = () => {
             <Stack.Screen
                 name={ScheduleBuilderRoutes.TaskGroup}
                 component={ScheduleBuilderTaskGroupScreen}
+                options={getScreenOptions(getHeaderWithBackButton)} />
+            <Stack.Screen
+                name={ScheduleBuilderRoutes.TaskMenu}
+                component={ScheduleBuilderTaskMenuScreen}
+                options={getScreenOptions(getHeaderWithBackButton)} />
+            <Stack.Screen
+                name={ScheduleBuilderRoutes.TaskGroupMenu}
+                component={ScheduleBuilderTaskGroupMenuScreen}
                 options={getScreenOptions(getHeaderWithBackButton)} />
         </Stack.Navigator>
     );

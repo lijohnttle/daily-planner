@@ -11,19 +11,18 @@ const styles = StyleSheet.create({
     header: {
         color: variables.disabledTextColor,
         textTransform: 'uppercase',
-        fontSize: variables.DefaultFontSize * 1.2,
         paddingBottom: 8,
     },
 });
 
-export const TasksList = ({ tasks, onChangeTask, onDeleteTask }) => {
+export const TasksList = ({ tasks, onChangeTask }) => {
     return (
         <View style={styles.root}>
             <Text style={styles.header}>
                 TASKS
             </Text>
 
-            {tasks.map(task => <Task key={task.id} task={task} onChangeTask={onChangeTask} onDeleteTask={onDeleteTask} />)}
+            {tasks.map(task => <Task key={task.id} task={task} onChangeTask={onChangeTask} />)}
         </View>
     );
 };

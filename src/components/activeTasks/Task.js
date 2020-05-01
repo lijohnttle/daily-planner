@@ -18,9 +18,9 @@ const styles = StyleSheet.create({
     task: {
         flexDirection: "row",
         alignItems: "center",
-        paddingLeft: 8,
-        paddingRight: 8,
-        height: 48,
+        paddingLeft: variables.padding,
+        paddingRight: variables.padding,
+        height: variables.inputHeightBase,
     },
     name: {
         flexGrow: 1,

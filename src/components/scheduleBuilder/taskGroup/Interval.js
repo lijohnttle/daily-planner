@@ -1,7 +1,9 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { View, Text, Button, Icon } from 'native-base';
+import { useNavigation } from '@react-navigation/native';
 import variables from '../../../theme/variables/custom';
+import ScheduleBuilderRoutes from '../../../navigators/ScheduleBuilderRoutes';
 
 const styles = StyleSheet.create({
     root: {
@@ -10,12 +12,11 @@ const styles = StyleSheet.create({
     headerContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingBottom: 8,
+        paddingBottom: variables.padding,
     },
     header: {
         color: variables.disabledTextColor,
         textTransform: 'uppercase',
-        fontSize: variables.DefaultFontSize * 1.2,
     },
     intervalContainer: {
         flexDirection: 'row',
@@ -38,7 +39,9 @@ const styles = StyleSheet.create({
     }
 });
 
-export const Interval = ({ taskGroup, onDeleteTaskGroup }) => {
+export const Interval = ({ taskGroup }) => {
+    const navigation = useNavigation();
+
     return (
         <View style={styles.root}>
             <View style={styles.headerContainer}>
@@ -46,8 +49,8 @@ export const Interval = ({ taskGroup, onDeleteTaskGroup }) => {
                     INTERVAL
                 </Text>
 
-                <Button danger onPress={onDeleteTaskGroup}>
-                    <Icon name="trash" type="FontAwesome" style={{ color: variables.textColor }} />
+                <Button light onPress={() => navigation.push(ScheduleBuilderRoutes.TaskGroupMenu, { taskGroupId: taskGroup.id })}>
+                    <Icon name="cog" type="FontAwesome" style={{ color: variables.textColor }} />
                 </Button>
             </View>
 

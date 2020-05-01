@@ -1,32 +1,22 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { View, Text, Input, Button, Icon } from 'native-base';
+import { useNavigation } from '@react-navigation/native';
 import variables from '../../../theme/variables/custom';
+import ScheduleBuilderRoutes from '../../../navigators/ScheduleBuilderRoutes';
 
 const styles = StyleSheet.create({
     root: {
-        marginBottom: 48,
+        marginBottom: 24,
     },
     bar: {
         flexDirection: 'row',
-        alignItems: "center",
+        alignItems: 'center',
         paddingLeft: 8,
         paddingRight: 8,
-        marginBottom: 8,
+        marginBottom: 2,
         height: 48,
         backgroundColor: variables.brandLight,
-    },
-    deleteButton: {
-        alignSelf: 'flex-start',
-        paddingLeft: 8,
-        paddingRight: 8,
-        height: 48,
-    },
-    settingsButton: {
-        justifyContent: 'center',
-        paddingLeft: 8,
-        paddingRight: 8,
-        height: 48,
     },
     nameBar: {
         flexDirection: 'row',
@@ -39,10 +29,17 @@ const styles = StyleSheet.create({
     nameInput: {
         flex: 1,
     },
+    settingsButton: {
+        justifyContent: 'center',
+        paddingLeft: 8,
+        paddingRight: 8,
+        height: 48,
+    },
 });
 
-export const Task = ({ task, onChangeTask, onDeleteTask }) => {
+export const Task = ({ task, onChangeTask }) => {
     const [taskName, changeTaskName] = useState(task.name);
+    const navigation = useNavigation();
 
     const handleChangeTaskName = e => {
         changeTaskName(e.nativeEvent.text);
@@ -63,10 +60,10 @@ export const Task = ({ task, onChangeTask, onDeleteTask }) => {
             </View>
 
             <Button
-                danger
-                style={styles.deleteButton}
-                onPress={() => onDeleteTask(task.id)}>
-                <Icon type="FontAwesome" name="trash" style={{ color: variables.textColor, fontSize: variables.fontSizeBase }} />
+                light
+                style={styles.settingsButton}
+                onPress={() => navigation.push(ScheduleBuilderRoutes.TaskMenu, { taskId: task.id })}>
+                <Icon type="FontAwesome" name="cog" style={{ color: variables.textColor }} />
             </Button>
         </View>
     );

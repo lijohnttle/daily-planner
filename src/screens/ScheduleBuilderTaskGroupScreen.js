@@ -4,8 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Container, Content, View } from 'native-base';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { Interval, TasksList } from '../components/scheduleBuilder/taskGroup';
-import { deleteTaskGroup } from '../ducks/taskGroups';
-import { changeTask, deleteTask } from '../ducks/tasks';
+import { changeTask } from '../ducks/tasks';
 
 const styles = StyleSheet.create({
     intervalContainer: {
@@ -19,17 +18,14 @@ export const ScheduleBuilderTaskGroupScreen = () => {
     const taskGroup = useSelector(state => state.taskGroups.mapById[taskGroupId]);
     const navigation = useNavigation();
     const dispatch = useDispatch();
+    const tasks = useSelector(state => state.tasks.mapByGroupId[taskGroupId]) || [];
 
     if (!taskGroup) {
         navigation.pop();
         return null;
     }
 
-    const tasks = useSelector(state => state.tasks.mapByGroupId[taskGroupId]) || [];
-
-    const handleDeleteTaskGroup = () => dispatch(deleteTaskGroup(taskGroupId));
     const handleChangeTask = changes => dispatch(changeTask(changes));
-    const handleDeleteTask = taskId => dispatch(deleteTask(taskId));
 
     return (
         <Container>
@@ -38,10 +34,10 @@ export const ScheduleBuilderTaskGroupScreen = () => {
                     <ScrollView contentInsetAdjustmentBehavior="automatic">
                         <View>
                             <View style={styles.intervalContainer}>
-                                <Interval taskGroup={taskGroup} onDeleteTaskGroup={handleDeleteTaskGroup} />
+                                <Interval taskGroup={taskGroup} />
                             </View>
 
-                            <TasksList tasks={tasks} onChangeTask={handleChangeTask} onDeleteTask={handleDeleteTask} />
+                            <TasksList tasks={tasks} onChangeTask={handleChangeTask} />
                         </View>
                     </ScrollView>
                 </SafeAreaView>
