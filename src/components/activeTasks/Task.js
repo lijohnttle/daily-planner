@@ -5,6 +5,7 @@ import variables from '../../theme/variables/custom';
 import { msToHHmm } from '../../utils/dateTimeHelper';
 import Icon from 'react-native-vector-icons/AntDesign';
 import TaskStatuses from '../../constants/TaskStatuses';
+import TaskPriorities from '../../constants/TaskPriorities';
 import { TaskCommands } from './TaskCommands';
 import { changeTaskStatus } from '../../ducks/taskStatuses';
 import { useSelector, useDispatch } from 'react-redux';
@@ -81,7 +82,8 @@ export const Task = ({ task, withinActiveGroup }) => {
     return (
         <View style={styles.root}>
             <Button
-                light
+                light={task.priority === TaskPriorities.HIGH}
+                dark={task.priority === TaskPriorities.OPTIONAL}
                 style={styles.task}
                 onPress={() => press(!isPressed)}>
                 <>

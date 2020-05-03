@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
         marginBottom: 2,
         height: 48,
         backgroundColor: variables.brandLight,
+        color: variables.textColor,
     },
     nameBar: {
         flexDirection: 'row',
@@ -39,6 +40,7 @@ const styles = StyleSheet.create({
 
 export const Task = ({ task, onChangeTask }) => {
     const [taskName, changeTaskName] = useState(task.name);
+    const [taskPriority, changeTaskPriority] = useState(task.priority);
     const navigation = useNavigation();
 
     const handleChangeTaskName = e => {
@@ -52,6 +54,14 @@ export const Task = ({ task, onChangeTask }) => {
         });
     };
 
+    const handleChangePriority = value => {
+        changeTaskPriority(value);
+        onChangeTask({
+            id: task.id,
+            priority: value,
+        });
+    };
+
     return (
         <View style={styles.root}>
             <View style={[styles.bar, styles.nameBar]}>
@@ -59,10 +69,10 @@ export const Task = ({ task, onChangeTask }) => {
                 <Input style={styles.nameInput} onChange={handleChangeTaskName} onEndEditing={handleEndEditingTaskName} value={taskName} />
             </View>
 
-            {/* <Picker style={{ height: 48 }} placeholderStyle={{ backgroundColor: 'red' }} mode="dropdown">
+            <Picker style={styles.bar} mode="dialog" selectedValue={taskPriority} onValueChange={handleChangePriority}>
                 <Picker.Item label="High" value="high" />
                 <Picker.Item label="Optional" value="optional" />
-            </Picker> */}
+            </Picker>
 
             <Button
                 light
