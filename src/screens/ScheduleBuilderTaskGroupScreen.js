@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Content, View } from 'native-base';
 import { useRoute, useNavigation } from '@react-navigation/native';
@@ -30,17 +30,15 @@ export const ScheduleBuilderTaskGroupScreen = () => {
     return (
         <Container>
             <Content>
-                <SafeAreaView>
-                    <ScrollView contentInsetAdjustmentBehavior="automatic">
-                        <View>
-                            <View style={styles.intervalContainer}>
-                                <Interval taskGroup={taskGroup} />
-                            </View>
-
-                            <TasksList tasks={tasks} onChangeTask={handleChangeTask} />
+                <ScrollView contentInsetAdjustmentBehavior="automatic">
+                    <View>
+                        <View style={styles.intervalContainer}>
+                            <Interval taskGroup={taskGroup} />
                         </View>
-                    </ScrollView>
-                </SafeAreaView>
+
+                        <TasksList tasks={tasks} onChangeTask={handleChangeTask} />
+                    </View>
+                </ScrollView>
             </Content>
         </Container>
     );

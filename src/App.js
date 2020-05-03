@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider as StoreProvider } from 'react-redux';
-import { StatusBar } from 'react-native';
+import { StatusBar, SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { RootNavigator } from './navigators/RootNavigator';
 import { StyleProvider } from 'native-base';
@@ -18,7 +18,9 @@ const App: () => React$Node = () => {
                     <StatusBar barStyle="dark-content" hidden={true} />
                     
                     <NavigationContainer>
-                        <RootNavigator />
+                        <SafeAreaView style={{ flex: 1 }}>
+                            <RootNavigator />
+                        </SafeAreaView>
                     </NavigationContainer>
                 </>
             </StyleProvider>

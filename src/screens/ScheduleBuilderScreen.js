@@ -7,13 +7,11 @@ export const ScheduleBuilderScreen = () => {
     return (
         <Container>
             <Content>
-                <SafeAreaView>
-                    <ScrollView contentInsetAdjustmentBehavior="automatic">
-                        <View>
-                            <DaysList />
-                        </View>
-                    </ScrollView>
-                </SafeAreaView>
+                <ScrollView contentInsetAdjustmentBehavior="automatic">
+                    <View>
+                        <DaysList />
+                    </View>
+                </ScrollView>
             </Content>
         </Container>
     );

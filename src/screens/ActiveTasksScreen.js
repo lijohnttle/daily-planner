@@ -26,13 +26,11 @@ export const ActiveTasksScreen = ({ navigation }) => {
             </Header>
 
             <Content>
-                <SafeAreaView>
-                    <ScrollView contentInsetAdjustmentBehavior="automatic">
-                        <View>
-                            <DaysList />
-                        </View>
-                    </ScrollView>
-                </SafeAreaView>
+                <ScrollView contentInsetAdjustmentBehavior="automatic">
+                    <View>
+                        <DaysList />
+                    </View>
+                </ScrollView>
             </Content>
         </Container>
     );

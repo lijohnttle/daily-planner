@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { Container, Content, View, Icon, Button, Text } from 'native-base';
 import { useRoute, useNavigation } from '@react-navigation/native';
@@ -9,6 +9,7 @@ import { deleteTaskGroup } from '../ducks/taskGroups';
 const styles = StyleSheet.create({
     root: {
         margin: 8,
+        marginTop: 48,
     },
     deleteButton: {
         justifyContent: 'flex-start',
@@ -33,19 +34,15 @@ export const ScheduleBuilderTaskGroupMenuScreen = () => {
     return (
         <Container>
             <Content>
-                <SafeAreaView>
-                    <ScrollView contentInsetAdjustmentBehavior="automatic">
-                        <View style={styles.root}>
-                            <Button
-                                danger
-                                style={styles.deleteButton}
-                                onPress={handleDeleteTaskGroup}>
-                                <Icon type="FontAwesome" name="trash" style={{ color: variables.textColor }} />
-                                <Text style={{ color: variables.textColor }}>DELETE</Text>
-                            </Button>
-                        </View>
-                    </ScrollView>
-                </SafeAreaView>
+                <View style={styles.root}>
+                    <Button
+                        danger
+                        style={styles.deleteButton}
+                        onPress={handleDeleteTaskGroup}>
+                        <Icon type="FontAwesome" name="trash" style={{ color: variables.textColor }} />
+                        <Text style={{ color: variables.textColor }}>DELETE</Text>
+                    </Button>
+                </View>
             </Content>
         </Container>
     );

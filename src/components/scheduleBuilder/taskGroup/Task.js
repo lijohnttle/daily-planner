@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { View, Text, Input, Button, Icon } from 'native-base';
+import { View, Text, Input, Button, Icon, Picker } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 import variables from '../../../theme/variables/custom';
 import ScheduleBuilderRoutes from '../../../navigators/ScheduleBuilderRoutes';
@@ -58,6 +58,11 @@ export const Task = ({ task, onChangeTask }) => {
                 <Text style={styles.nameLabel}>Name:</Text>
                 <Input style={styles.nameInput} onChange={handleChangeTaskName} onEndEditing={handleEndEditingTaskName} value={taskName} />
             </View>
+
+            {/* <Picker style={{ height: 48 }} placeholderStyle={{ backgroundColor: 'red' }} mode="dropdown">
+                <Picker.Item label="High" value="high" />
+                <Picker.Item label="Optional" value="optional" />
+            </Picker> */}
 
             <Button
                 light
