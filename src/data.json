@@ -49,7 +49,7 @@
         {
             "id": "1",
             "name": "Study: Heavy Misc.",
-            "duration": 2700000,
+            "duration": 4500000,
             "priority": "high",
             "groupId": "1"
         },

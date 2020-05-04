@@ -1,5 +1,5 @@
 import data from '../data.json';
-import { getMapById, getGroupsBy } from '../helpers/mapHelper'
+import { getMapById, getGroupsBy } from '../utils/mapHelper'
 
 export const DELETE_TASK_GROUP = 'DELETE_TASK_GROUP';
 

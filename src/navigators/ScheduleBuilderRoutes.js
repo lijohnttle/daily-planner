@@ -4,4 +4,5 @@ export default {
     TaskGroup: 'TaskGroup',
     TaskMenu: 'TaskMenu',
     TaskGroupMenu: 'TaskGroupMenu',
+    TaskDurationPicker: 'TaskDurationPicker',
 };

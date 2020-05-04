@@ -1,5 +1,5 @@
 import data from '../data.json';
-import { getMapById } from '../helpers/mapHelper'
+import { getMapById } from '../utils/mapHelper'
 
 const initialState = {
     list: data.days,

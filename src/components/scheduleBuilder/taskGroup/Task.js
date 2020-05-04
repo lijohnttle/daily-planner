@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { View, Text, Input, Button, Icon, Picker } from 'native-base';
+import { View, Text, Input, Button, Icon, Picker, Row } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
-import variables from '../../../theme/variables/custom';
 import ScheduleBuilderRoutes from '../../../navigators/ScheduleBuilderRoutes';
+import variables from '../../../theme/variables/custom';
+import { msToHHmm } from '../../../utils/dateTimeHelper';
 
 const styles = StyleSheet.create({
     root: {
@@ -69,10 +70,19 @@ export const Task = ({ task, onChangeTask }) => {
                 <Input style={styles.nameInput} onChange={handleChangeTaskName} onEndEditing={handleEndEditingTaskName} value={taskName} />
             </View>
 
-            <Picker style={styles.bar} mode="dialog" selectedValue={taskPriority} onValueChange={handleChangePriority}>
-                <Picker.Item label="High" value="high" />
-                <Picker.Item label="Optional" value="optional" />
-            </Picker>
+            <View style={{ flexDirection: 'row' }}>
+                <Button
+                    light
+                    style={{ flex: 1, marginRight: 1, height: 48, margin: 0 }}
+                    onPress={() => navigation.push(ScheduleBuilderRoutes.TaskDurationPicker, { taskId: task.id })}>
+                    <Text style={{ color: variables.textColor }}>{task.duration ? msToHHmm(task.duration) : '—:—'}</Text>
+                </Button>
+
+                <Picker style={[styles.bar, { flex: 1, marginLeft: 1, hieght: 48 }]} mode="dialog" selectedValue={taskPriority} onValueChange={handleChangePriority}>
+                    <Picker.Item label="High" value="high" />
+                    <Picker.Item label="Optional" value="optional" />
+                </Picker>
+            </View>
 
             <Button
                 light

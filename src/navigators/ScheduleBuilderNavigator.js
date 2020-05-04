@@ -10,6 +10,7 @@ import { ScheduleBuilderDayScreen } from '../screens/ScheduleBuilderDayScreen';
 import { ScheduleBuilderTaskGroupScreen } from '../screens/ScheduleBuilderTaskGroupScreen';
 import { ScheduleBuilderTaskMenuScreen } from '../screens/ScheduleBuilderTaskMenuScreen';
 import { ScheduleBuilderTaskGroupMenuScreen } from '../screens/ScheduleBuilderTaskGroupMenuScreen';
+import { ScheduleBuilderTaskDurationScreen } from '../screens/ScheduleBuilderTaskDurationScreen';
 
 const styles = StyleSheet.create({
     header: {
@@ -80,6 +81,10 @@ export const ScheduleBuilderNavigator = () => {
             <Stack.Screen
                 name={ScheduleBuilderRoutes.TaskGroupMenu}
                 component={ScheduleBuilderTaskGroupMenuScreen}
+                options={getScreenOptions(getHeaderWithBackButton)} />
+            <Stack.Screen
+                name={ScheduleBuilderRoutes.TaskDurationPicker}
+                component={ScheduleBuilderTaskDurationScreen}
                 options={getScreenOptions(getHeaderWithBackButton)} />
         </Stack.Navigator>
     );

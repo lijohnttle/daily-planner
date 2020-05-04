@@ -1,5 +1,5 @@
 import data from '../data.json';
-import { getMapById, getGroupsBy } from '../helpers/mapHelper'
+import { getMapById, getGroupsBy } from '../utils/mapHelper'
 
 const CHANGE_TASK = 'CHANGE_TASK';
 const DELETE_TASK = 'DELETE_TASK';
