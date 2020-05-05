@@ -11,7 +11,8 @@ const styles = StyleSheet.create({
     header: {
         color: variables.disabledTextColor,
         textTransform: 'uppercase',
-        paddingBottom: 8,
+        paddingBottom: 24,
+        fontSize: variables.fontSizeH3,
     },
 });
 

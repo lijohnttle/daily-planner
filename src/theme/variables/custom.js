@@ -128,7 +128,7 @@ export default {
   brandSuccess: '#5cb85c',
   brandDanger: '#d9534f',
   brandWarning: '#f0ad4e',
-  brandDark: '#27282d',
+  brandDark: '#24252b',
   brandLight: '#2b2c32',
 
   // Container
@@ -277,7 +277,7 @@ export default {
   titleFontColor: '#FFF',
 
   // Other
-  borderRadiusBase: 2,
+  borderRadiusBase: 0,
   borderWidth: 1 / PixelRatio.getPixelSizeForLayoutSize(1),
   contentPadding: 10,
   dropdownLinkColor: '#414142',

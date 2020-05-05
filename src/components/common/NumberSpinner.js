@@ -47,7 +47,7 @@ export const NumberSpinner = ({
                     <Icon name="chevron-up" type="FontAwesome" style={{ color: variables.textColor, fontSize: size }} />
                 </Button>
             </BounceButtonDecorator>
-            <Text style={[styles.value, { fontSize: size, backgroundColor: disabled ? variables.buttonDisabledBg : variables.brandLight }, valueStyle]}>
+            <Text style={[styles.value, { elevation: 2, fontSize: size, backgroundColor: disabled ? variables.buttonDisabledBg : variables.brandLight }, valueStyle]}>
                 {displayValueConverter ? displayValueConverter(value) : value}
             </Text>
             <BounceButtonDecorator bounce={onValueDown}>

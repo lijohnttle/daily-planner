@@ -40,8 +40,8 @@
     "taskGroups": [
         {
             "id": 1,
-            "intervalFrom": "05:00",
-            "intervalTo": "08:30",
+            "intervalFrom": 18000000,
+            "duration": 12600000,
             "dayId": 1
         }
     ],

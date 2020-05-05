@@ -12,3 +12,6 @@ export const msToHHmm = (ms) => {
 export const convertHoursAndMinutesToMs = (hours, minutes) => {
     return hours * 60 * 60 * 1000 + minutes * 60 * 1000;
 };
+
+export const getHours = (ms) => Math.floor(ms / 1000 / 60 / 60);
+export const getMinutes = (ms) => Math.floor((ms / 1000 / 60) % 60);

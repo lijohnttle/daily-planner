@@ -23,7 +23,7 @@ const Stack = createStackNavigator();
 const getHeaderWithMenuButton = props => (
     <Header style={styles.header}>
         <Left>
-            <Button light transparent onPress={props.navigation.openDrawer}>
+            <Button light style={{ elevation: 0 }} onPress={props.navigation.openDrawer}>
                 <Icon name='bars' color={variables.textColor} size={24} />
             </Button>
         </Left>
@@ -36,7 +36,7 @@ const getHeaderWithMenuButton = props => (
 const getHeaderWithBackButton = props => (
     <Header style={styles.header}>
         <Left>
-            <Button light transparent onPress={() => props.navigation.pop()}>
+            <Button light style={{ elevation: 0 }} onPress={() => props.navigation.pop()}>
                 <Icon name='chevron-left' color={variables.textColor} size={24} />
             </Button>
         </Left>

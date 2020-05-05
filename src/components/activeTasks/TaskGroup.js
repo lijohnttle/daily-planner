@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, Text } from 'native-base';
 import { StyleSheet } from 'react-native';
-import variables from '../../theme/variables/custom';
 import { TasksList } from './TasksList';
+import variables from '../../theme/variables/custom';
+import { msToHHmm } from '../../utils/dateTimeHelper';
 
 const styles = StyleSheet.create({
     root: {
@@ -20,7 +21,7 @@ export const TaskGroup = ({ taskGroup, tasks }) => {
     return (
         <View style={styles.root}>
             <Text style={styles.header}>
-                {taskGroup.intervalFrom}&nbsp;—&nbsp;{taskGroup.intervalTo}
+                {msToHHmm(taskGroup.intervalFrom)}&nbsp;—&nbsp;{msToHHmm(taskGroup.intervalFrom + taskGroup.duration)}
             </Text>
 
             <TasksList tasks={tasks} />

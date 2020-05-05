@@ -2,8 +2,9 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { View, Text, Button } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
-import variables from '../../../theme/variables/custom';
 import ScheduleBuilderRoutes from '../../../navigators/ScheduleBuilderRoutes';
+import variables from '../../../theme/variables/custom';
+import { msToHHmm } from '../../../utils/dateTimeHelper';
 
 const styles = StyleSheet.create({
     root: {
@@ -38,11 +39,11 @@ export const TaskGroup = ({ taskGroup }) => {
             <Button light style={styles.taskGroupButton} onPress={() => navigation.push(ScheduleBuilderRoutes.TaskGroup, { taskGroupId: taskGroup.id })}>
                 <View style={styles.intervalPart}>
                     <Text style={styles.intervalLabel}>From</Text>
-                    <Text style={styles.intervalValue}>{taskGroup.intervalFrom}</Text>
+                    <Text style={styles.intervalValue}>{msToHHmm(taskGroup.intervalFrom)}</Text>
                 </View>
                 <View style={styles.intervalPart}>
                     <Text style={styles.intervalLabel}>To</Text>
-                    <Text style={styles.intervalValue}>{taskGroup.intervalTo}</Text>
+                    <Text style={styles.intervalValue}>{msToHHmm(taskGroup.intervalFrom + taskGroup.duration)}</Text>
                 </View>
             </Button>
         </View>

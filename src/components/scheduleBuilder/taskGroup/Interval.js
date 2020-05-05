@@ -2,8 +2,9 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { View, Text, Button, Icon } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
-import variables from '../../../theme/variables/custom';
 import ScheduleBuilderRoutes from '../../../navigators/ScheduleBuilderRoutes';
+import variables from '../../../theme/variables/custom';
+import { msToHHmm } from '../../../utils/dateTimeHelper';
 
 const styles = StyleSheet.create({
     root: {
@@ -17,6 +18,7 @@ const styles = StyleSheet.create({
     header: {
         color: variables.disabledTextColor,
         textTransform: 'uppercase',
+        fontSize: variables.fontSizeH3,
     },
     intervalContainer: {
         flexDirection: 'row',
@@ -49,8 +51,11 @@ export const Interval = ({ taskGroup }) => {
                     INTERVAL
                 </Text>
 
-                <Button light onPress={() => navigation.push(ScheduleBuilderRoutes.TaskGroupMenu, { taskGroupId: taskGroup.id })}>
-                    <Icon name="cog" type="FontAwesome" style={{ color: variables.textColor }} />
+                <Button
+                    dark
+                    style={{ height: 32, elevation: 0 }}
+                    onPress={() => navigation.push(ScheduleBuilderRoutes.TaskGroupMenu, { taskGroupId: taskGroup.id })}>
+                    <Icon name="cog" type="FontAwesome" style={{ color: variables.textColor, fontSize: 16 }} />
                 </Button>
             </View>
 
@@ -60,15 +65,15 @@ export const Interval = ({ taskGroup }) => {
                         From
                     </Text>
                     <Text style={styles.intervalValue}>
-                        {taskGroup.intervalFrom}
+                        {msToHHmm(taskGroup.intervalFrom)}
                     </Text>
                 </Button>
                 <Button light style={[styles.intervalPartButton, { marginLeft: 1 }]}>
                     <Text style={styles.intervalLabel}>
-                        From
+                        To
                     </Text>
                     <Text style={styles.intervalValue}>
-                        {taskGroup.intervalTo}
+                        {msToHHmm(taskGroup.intervalFrom + taskGroup.duration)}
                     </Text>
                 </Button>
             </View>

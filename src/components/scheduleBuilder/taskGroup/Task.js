@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { View, Text, Input, Button, Icon, Picker, Row } from 'native-base';
+import { View, Text, Input, Button, Icon, Picker } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 import ScheduleBuilderRoutes from '../../../navigators/ScheduleBuilderRoutes';
 import variables from '../../../theme/variables/custom';
@@ -8,7 +8,7 @@ import { msToHHmm } from '../../../utils/dateTimeHelper';
 
 const styles = StyleSheet.create({
     root: {
-        marginBottom: 24,
+        marginBottom: 32,
     },
     bar: {
         flexDirection: 'row',
@@ -19,33 +19,30 @@ const styles = StyleSheet.create({
         height: 48,
         backgroundColor: variables.brandLight,
         color: variables.textColor,
+        elevation: 2,
     },
     nameBar: {
         flexDirection: 'row',
         alignItems: 'center',
-    },
-    nameLabel: {
-        color: variables.disabledTextColor,
-        marginRight: 8,
     },
     nameInput: {
         flex: 1,
     },
     settingsButton: {
         justifyContent: 'center',
-        paddingLeft: 8,
-        paddingRight: 8,
-        height: 48,
+        alignSelf: 'flex-end',
+        height: 32,
+        elevation: 0,
     },
 });
 
 export const Task = ({ task, onChangeTask }) => {
-    const [taskName, changeTaskName] = useState(task.name);
-    const [taskPriority, changeTaskPriority] = useState(task.priority);
+    const [taskName, setTaskName] = useState(task.name);
+    const [taskPriority, setTaskPriority] = useState(task.priority);
     const navigation = useNavigation();
 
     const handleChangeTaskName = e => {
-        changeTaskName(e.nativeEvent.text);
+        setTaskName(e.nativeEvent.text);
     };
 
     const handleEndEditingTaskName = () => {
@@ -56,7 +53,7 @@ export const Task = ({ task, onChangeTask }) => {
     };
 
     const handleChangePriority = value => {
-        changeTaskPriority(value);
+        setTaskPriority(value);
         onChangeTask({
             id: task.id,
             priority: value,
@@ -65,9 +62,15 @@ export const Task = ({ task, onChangeTask }) => {
 
     return (
         <View style={styles.root}>
+            <Button
+                dark
+                style={styles.settingsButton}
+                onPress={() => navigation.push(ScheduleBuilderRoutes.TaskMenu, { taskId: task.id })}>
+                <Icon type="FontAwesome" name="cog" style={{ color: variables.textColor, fontSize: 16 }} />
+            </Button>
+
             <View style={[styles.bar, styles.nameBar]}>
-                <Text style={styles.nameLabel}>Name:</Text>
-                <Input style={styles.nameInput} onChange={handleChangeTaskName} onEndEditing={handleEndEditingTaskName} value={taskName} />
+                <Input style={styles.nameInput} placeholder="Name" onChange={handleChangeTaskName} onEndEditing={handleEndEditingTaskName} value={taskName} />
             </View>
 
             <View style={{ flexDirection: 'row' }}>
@@ -83,13 +86,6 @@ export const Task = ({ task, onChangeTask }) => {
                     <Picker.Item label="Optional" value="optional" />
                 </Picker>
             </View>
-
-            <Button
-                light
-                style={styles.settingsButton}
-                onPress={() => navigation.push(ScheduleBuilderRoutes.TaskMenu, { taskId: task.id })}>
-                <Icon type="FontAwesome" name="cog" style={{ color: variables.textColor }} />
-            </Button>
         </View>
     );
 };
