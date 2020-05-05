@@ -73,7 +73,7 @@ export const Task = ({ task, onChangeTask }) => {
             <View style={{ flexDirection: 'row' }}>
                 <Button
                     light
-                    style={{ flex: 1, marginRight: 1, height: 48, margin: 0 }}
+                    style={{ flex: 1, marginRight: 1, height: 48 }}
                     onPress={() => navigation.push(ScheduleBuilderRoutes.TaskDurationPicker, { taskId: task.id })}>
                     <Text style={{ color: variables.textColor }}>{task.duration ? msToHHmm(task.duration) : '—:—'}</Text>
                 </Button>

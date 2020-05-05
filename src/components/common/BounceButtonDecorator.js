@@ -11,7 +11,7 @@ class BounceButtonDecorator extends React.Component {
 
     bounce = () => {
         if (!this.timerId) {
-            changeBounceInterval.call(this, 300, 50, 1.3, true);
+            changeBounceInterval.call(this, 250, 50, 1.3, true);
         }
 
         function changeBounceInterval(interval, minInterval, accelerator, initial) {
@@ -37,14 +37,6 @@ class BounceButtonDecorator extends React.Component {
         this.timerId = null;
     };
 
-    endChanging = () => {
-        this.stopBouncing();
-
-        if (this.props.onEndChanging) {
-            this.props.onEndChanging();
-        }
-    };
-
     componentWillUnmount = () => {
         this.stopBouncing();
     };
@@ -58,7 +50,7 @@ class BounceButtonDecorator extends React.Component {
 
         return (
             <>
-                {React.cloneElement(button, { onLongPress: this.bounce, delayLongPress: 500, onPressOut: this.endChanging })}
+                {React.cloneElement(button, { onLongPress: this.bounce, delayLongPress: 500, onPressOut: this.stopBouncing })}
             </>
         );
     };
@@ -66,8 +58,6 @@ class BounceButtonDecorator extends React.Component {
 
 BounceButtonDecorator.propTypes = {
     bounce: PropTypes.func,
-    onEndChanging: PropTypes.func,
-    disabled: PropTypes.bool,
 };
 
 export { BounceButtonDecorator };

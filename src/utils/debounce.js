@@ -1,23 +1,25 @@
 import { useRef, useEffect } from "react";
 
-export const useDebouncer = () => {
-    const timerId = useRef();
+export const useDebouncer = (defaultAction, defaultDelay) => {
+    const timerIdRef = useRef();
+    const defaultActionRef = useRef(defaultAction);
+    const defaultDelayRef = useRef(defaultDelay);
 
     useEffect(() => {
-        timerId.current = null;
+        timerIdRef.current = null;
 
         return () => {
-            clearTimeout(timerId.current);
+            clearTimeout(timerIdRef.current);
         };
     }, []);
 
     return (action, timeoutMs) => {
-        clearTimeout(timerId.current);
+        clearTimeout(timerIdRef.current);
 
-        timerId.current = setTimeout(() => {
-            clearTimeout(timerId.current);
-            timerId.current = null;
-            action();
-        }, timeoutMs);
+        timerIdRef.current = setTimeout(() => {
+            clearTimeout(timerIdRef.current);
+            timerIdRef.current = null;
+            (action ?? defaultActionRef.current)();
+        }, timeoutMs ?? defaultDelayRef.current);
     };
 };

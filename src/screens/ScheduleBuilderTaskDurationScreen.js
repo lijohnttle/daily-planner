@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Content, View, Text, CheckBox, ListItem, Body } from 'native-base';
@@ -27,18 +27,31 @@ export const ScheduleBuilderTaskDurationScreen = () => {
     const [hours, setHours] = useState(taskDuration ? Math.floor(taskDuration / 1000 / 60 / 60) : 0);
     const [minutes, setMinutes] = useState(taskDuration ? Math.floor((taskDuration / 1000 / 60) % 60) : 0);
     const [hasDuration, setHasDuration] = useState(!!taskDuration);
-    
-    const valueDebouncer = useDebouncer();
+    const [shouldSave, setShouldSave] = useState(false);
+    const saveDebouncer = useDebouncer(() => setShouldSave(true), 300);
+    const loaded = useRef(false);
 
-    const handleEndTimeChanging = () => {
-        dispatch(changeTask({ id: taskId, duration: convertHoursAndMinutesToMs(hours, minutes) }));
-    };
+    useEffect(() => {
+        if (loaded.current) {
+            saveDebouncer();
+        }
+        else {
+            loaded.current = true;
+        }
+    }, [hours, minutes, hasDuration]);
 
-    const handleChangeHasDuration = () => {
-        setHasDuration(!hasDuration);
-        
-        dispatch(changeTask({ id: taskId, duration: null }));
-    };
+    useEffect(() => {
+        if (shouldSave) {
+            setShouldSave(false);
+
+            if (hasDuration) {
+                dispatch(changeTask({ id: taskId, duration: convertHoursAndMinutesToMs(hours, minutes) }));
+            }
+            else {
+                dispatch(changeTask({ id: taskId, duration: null }));
+            }
+        }
+    }, [shouldSave]);
 
     return (
         <Container>
@@ -46,8 +59,8 @@ export const ScheduleBuilderTaskDurationScreen = () => {
                 <View style={styles.root}>
 
                     <View style={{ marginBottom: 48 }}>
-                        <ListItem onPress={handleChangeHasDuration}>
-                            <CheckBox checked={hasDuration} style={{ color: 'red' }} />
+                        <ListItem onPress={() => setHasDuration(t => !t)}>
+                            <CheckBox checked={hasDuration} style={{ color: 'red' }} onPress={() => setHasDuration(t => !t)} />
                             <Body>
                                 <Text>Has duration</Text>
                             </Body>
@@ -62,11 +75,9 @@ export const ScheduleBuilderTaskDurationScreen = () => {
                             value={hours}
                             displayValueConverter={pad}
                             valueStyle={styles.spinnerValue}
-                            minValue={0}
-                            maxValue={23}
                             size={48}
-                            onValueChange={setHours}
-                            onEndValueChanging={() => valueDebouncer(handleEndTimeChanging, 500)} />
+                            onValueUp={() => setHours(t => t < 23 ? t + 1 : 0)}
+                            onValueDown={() => setHours(t => t > 0 ? t - 1 : 23)} />
                         <NumberSpinner
                             disabled={!hasDuration}
                             style={{ marginLeft: 16 }}
@@ -74,11 +85,9 @@ export const ScheduleBuilderTaskDurationScreen = () => {
                             value={minutes}
                             valueStyle={styles.spinnerValue}
                             displayValueConverter={pad}
-                            minValue={0}
-                            maxValue={59}
                             size={48}
-                            onValueChange={setMinutes}
-                            onEndValueChanging={() => valueDebouncer(handleEndTimeChanging, 500)} />
+                            onValueUp={() => setMinutes(t => t < 59 ? t + 1 : 0)}
+                            onValueDown={() => setMinutes(t => t > 0 ? t - 1 : 59)} />
                     </View>
                 </View>
             </Content>
