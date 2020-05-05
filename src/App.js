@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider as StoreProvider } from 'react-redux';
 import { StatusBar, SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { RootNavigator } from './navigators/RootNavigator';
+import { RootNavigator } from './navigation/root-navigator';
 import { StyleProvider } from 'native-base';
 import getTheme from './theme/components/index';
 import custom from './theme/variables/custom';

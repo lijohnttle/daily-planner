@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { View, Text, Button } from 'native-base';
 import { useSelector } from 'react-redux';
 import variables from '../../../theme/variables/custom';
-import ScheduleBuilderRoutes from '../../../navigators/ScheduleBuilderRoutes';
+import { Routes } from '../../../navigation/schedule-builder-navigator';
 import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
@@ -34,7 +34,7 @@ export const DaysList = () => {
             </Text>
 
             {days.map(day => (
-                <Button key={day.id} light style={styles.dayButton} onPress={() => navigation.push(ScheduleBuilderRoutes.Day, { day })}>
+                <Button key={day.id} light style={styles.dayButton} onPress={() => navigation.push(Routes.Day, { day })}>
                     <Text style={{ color: variables.defaultTextColor }}>
                         {day.name}
                     </Text>

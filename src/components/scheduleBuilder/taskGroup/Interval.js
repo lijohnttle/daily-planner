@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { View, Text, Button, Icon } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
-import ScheduleBuilderRoutes from '../../../navigators/ScheduleBuilderRoutes';
+import { Routes } from '../../../navigation/schedule-builder-navigator';
 import variables from '../../../theme/variables/custom';
 import { msToHHmm } from '../../../utils/dateTimeHelper';
 
@@ -54,7 +54,7 @@ export const Interval = ({ taskGroup }) => {
                 <Button
                     dark
                     style={{ height: 32, elevation: 0 }}
-                    onPress={() => navigation.push(ScheduleBuilderRoutes.TaskGroupMenu, { taskGroupId: taskGroup.id })}>
+                    onPress={() => navigation.push(Routes.TaskGroupMenu, { taskGroupId: taskGroup.id })}>
                     <Icon name="cog" type="FontAwesome" style={{ color: variables.textColor, fontSize: 16 }} />
                 </Button>
             </View>

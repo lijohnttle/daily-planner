@@ -4,7 +4,6 @@ import { Header, Body, Title, Left, Button } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { createStackNavigator } from '@react-navigation/stack';
 import variables from '../theme/variables/custom';
-import ScheduleBuilderRoutes from './ScheduleBuilderRoutes';
 import { ScheduleBuilderScreen } from '../screens/ScheduleBuilderScreen';
 import { ScheduleBuilderDayScreen } from '../screens/ScheduleBuilderDayScreen';
 import { ScheduleBuilderTaskGroupScreen } from '../screens/ScheduleBuilderTaskGroupScreen';
@@ -17,6 +16,15 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1
     },
 });
+
+export const Routes = {
+    DaysList: 'DaysList',
+    Day: 'TaskGroupsList',
+    TaskGroup: 'TaskGroup',
+    TaskMenu: 'TaskMenu',
+    TaskGroupMenu: 'TaskGroupMenu',
+    TaskDurationPicker: 'TaskDurationPicker',
+};
 
 const Stack = createStackNavigator();
 
@@ -60,30 +68,30 @@ const getScreenOptions = header => {
 export const ScheduleBuilderNavigator = () => {
     return (
         <Stack.Navigator
-            initialRouteName={ScheduleBuilderRoutes.DaysList}
+            initialRouteName={Routes.DaysList}
             headerMode="float">
             <Stack.Screen
-                name={ScheduleBuilderRoutes.DaysList}
+                name={Routes.DaysList}
                 component={ScheduleBuilderScreen}
                 options={getScreenOptions(getHeaderWithMenuButton)} />
             <Stack.Screen
-                name={ScheduleBuilderRoutes.Day}
+                name={Routes.Day}
                 component={ScheduleBuilderDayScreen}
                 options={getScreenOptions(getHeaderWithBackButton)} />
             <Stack.Screen
-                name={ScheduleBuilderRoutes.TaskGroup}
+                name={Routes.TaskGroup}
                 component={ScheduleBuilderTaskGroupScreen}
                 options={getScreenOptions(getHeaderWithBackButton)} />
             <Stack.Screen
-                name={ScheduleBuilderRoutes.TaskMenu}
+                name={Routes.TaskMenu}
                 component={ScheduleBuilderTaskMenuScreen}
                 options={getScreenOptions(getHeaderWithBackButton)} />
             <Stack.Screen
-                name={ScheduleBuilderRoutes.TaskGroupMenu}
+                name={Routes.TaskGroupMenu}
                 component={ScheduleBuilderTaskGroupMenuScreen}
                 options={getScreenOptions(getHeaderWithBackButton)} />
             <Stack.Screen
-                name={ScheduleBuilderRoutes.TaskDurationPicker}
+                name={Routes.TaskDurationPicker}
                 component={ScheduleBuilderTaskDurationScreen}
                 options={getScreenOptions(getHeaderWithBackButton)} />
         </Stack.Navigator>

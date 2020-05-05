@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { View, Text, Input, Button, Icon, Picker } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
-import ScheduleBuilderRoutes from '../../../navigators/ScheduleBuilderRoutes';
+import { Routes } from '../../../navigation/schedule-builder-navigator';
 import variables from '../../../theme/variables/custom';
 import { msToHHmm } from '../../../utils/dateTimeHelper';
 
@@ -65,7 +65,7 @@ export const Task = ({ task, onChangeTask }) => {
             <Button
                 dark
                 style={styles.settingsButton}
-                onPress={() => navigation.push(ScheduleBuilderRoutes.TaskMenu, { taskId: task.id })}>
+                onPress={() => navigation.push(Routes.TaskMenu, { taskId: task.id })}>
                 <Icon type="FontAwesome" name="cog" style={{ color: variables.textColor, fontSize: 16 }} />
             </Button>
 
@@ -77,7 +77,7 @@ export const Task = ({ task, onChangeTask }) => {
                 <Button
                     light
                     style={{ flex: 1, marginRight: 1, height: 48 }}
-                    onPress={() => navigation.push(ScheduleBuilderRoutes.TaskDurationPicker, { taskId: task.id })}>
+                    onPress={() => navigation.push(Routes.TaskDurationPicker, { taskId: task.id })}>
                     <Text style={{ color: variables.textColor }}>{task.duration ? msToHHmm(task.duration) : '—:—'}</Text>
                 </Button>
 
