@@ -1,0 +1,1 @@
+export const screenSectionSpacing = () => ({ padding: 8, paddingTop: 24, marginBottom: 48 });

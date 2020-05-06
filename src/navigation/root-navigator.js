@@ -1,6 +1,6 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { ActiveTasksScreen } from '../screens/ActiveTasksScreen';
+import { ActiveTasksScreen } from '../scenes/home/ActiveTasksScreen';
 import { ScheduleBuilderNavigator } from './schedule-builder-navigator';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import variables from '../theme/variables/custom';
@@ -12,7 +12,7 @@ export const Routes = {
 
 const Drawer = createDrawerNavigator();
 
-const RootNavigator = () => {
+export const RootNavigator = () => {
     return (
         <Drawer.Navigator
             initialRouteName={Routes.ActiveTasks}
@@ -44,5 +44,3 @@ const RootNavigator = () => {
         </Drawer.Navigator>
     )
 };
-
-export { RootNavigator };

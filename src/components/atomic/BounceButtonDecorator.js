@@ -60,4 +60,4 @@ BounceButtonDecorator.propTypes = {
     bounce: PropTypes.func,
 };
 
-export { BounceButtonDecorator };
+export default BounceButtonDecorator;

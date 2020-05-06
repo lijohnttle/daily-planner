@@ -3,10 +3,10 @@ import { StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Content, View, Text, CheckBox, ListItem, Body } from 'native-base';
 import { useRoute } from '@react-navigation/native';
-import { NumberSpinner } from '../components/common/NumberSpinner';
-import { pad, convertHoursAndMinutesToMs } from '../utils/dateTimeHelper';
-import { useDebouncer } from '../utils/debounce';
-import { changeTask } from '../ducks/tasks';
+import { NumberSpinner } from '../../components/atomic';
+import { pad, convertHoursAndMinutesToMs } from '../../utils/dateTimeHelper';
+import { useDebouncer } from '../../utils/debounce';
+import { changeTask } from '../../ducks/tasks';
 
 const styles = StyleSheet.create({
     root: {
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export const ScheduleBuilderTaskDurationScreen = () => {
+export default () => {
     const route = useRoute();
     const taskId = route.params['taskId'];
     const taskDuration = useSelector(state => state.tasks.mapById[taskId].duration);

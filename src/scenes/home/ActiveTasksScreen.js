@@ -2,8 +2,8 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, ScrollView } from 'react-native';
 import { Container, Header, Content, Body, Title, Left, Button, View } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { DaysList } from '../components/activeTasks/DaysList';
-import variables from '../theme/variables/custom';
+import { DaysList } from '../../components/activeTasks/DaysList';
+import variables from '../../theme/variables/custom';
 
 const styles = StyleSheet.create({
     header: {

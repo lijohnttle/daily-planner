@@ -3,8 +3,8 @@ import { StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { Container, Content, View, Icon, Button, Text } from 'native-base';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import variables from '../theme/variables/custom';
-import { deleteTask } from '../ducks/tasks';
+import variables from '../../theme/variables/custom';
+import { deleteTaskGroup } from '../../ducks/taskGroups';
 
 const styles = StyleSheet.create({
     root: {
@@ -19,14 +19,14 @@ const styles = StyleSheet.create({
     },
 });
 
-export const ScheduleBuilderTaskMenuScreen = () => {
+export default () => {
     const route = useRoute();
-    const taskId = route.params['taskId'];
+    const taskGroupId = route.params['taskGroupId'];
     const dispatch = useDispatch();
     const navigation = useNavigation();
 
-    const handleDeleteTask = () => {
-        dispatch(deleteTask(taskId));
+    const handleDeleteTaskGroup = () => {
+        dispatch(deleteTaskGroup(taskGroupId));
         
         navigation.pop();
     };
@@ -38,7 +38,7 @@ export const ScheduleBuilderTaskMenuScreen = () => {
                     <Button
                         danger
                         style={styles.deleteButton}
-                        onPress={handleDeleteTask}>
+                        onPress={handleDeleteTaskGroup}>
                         <Icon type="FontAwesome" name="trash" style={{ color: variables.textColor }} />
                         <Text style={{ color: variables.textColor }}>DELETE</Text>
                     </Button>
