@@ -3,8 +3,7 @@ import { StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Content, View, Text, CheckBox, ListItem, Body } from 'native-base';
 import { useRoute } from '@react-navigation/native';
-import { NumberSpinner } from '../../components/atomic';
-import { pad, convertHoursAndMinutesToMs } from '../../utils/dateTimeHelper';
+import { TimestampEdit } from '../../components/medium';
 import { useDebouncer } from '../../utils/debounce';
 import { changeTask } from '../../ducks/tasks';
 
@@ -14,9 +13,6 @@ const styles = StyleSheet.create({
         paddingTop: 16,
         flex: 1,
     },
-    spinnerValue: {
-        paddingVertical: 48,
-    },
 });
 
 export default () => {
@@ -24,8 +20,7 @@ export default () => {
     const taskId = route.params['taskId'];
     const taskDuration = useSelector(state => state.tasks.mapById[taskId].duration);
     const dispatch = useDispatch();
-    const [hours, setHours] = useState(taskDuration ? Math.floor(taskDuration / 1000 / 60 / 60) : 0);
-    const [minutes, setMinutes] = useState(taskDuration ? Math.floor((taskDuration / 1000 / 60) % 60) : 0);
+    const [duration, setDuration] = useState(taskDuration ? taskDuration : 0);
     const [hasDuration, setHasDuration] = useState(!!taskDuration);
     const [shouldSave, setShouldSave] = useState(false);
     const saveDebouncer = useDebouncer(() => setShouldSave(true), 300);
@@ -38,14 +33,14 @@ export default () => {
         else {
             loaded.current = true;
         }
-    }, [hours, minutes, hasDuration]);
+    }, [duration, hasDuration]);
 
     useEffect(() => {
         if (shouldSave) {
             setShouldSave(false);
 
             if (hasDuration) {
-                dispatch(changeTask({ id: taskId, duration: convertHoursAndMinutesToMs(hours, minutes) }));
+                dispatch(changeTask({ id: taskId, duration: duration }));
             }
             else {
                 dispatch(changeTask({ id: taskId, duration: null }));
@@ -57,7 +52,6 @@ export default () => {
         <Container>
             <Content contentContainerStyle={{ flex: 1 }}>
                 <View style={styles.root}>
-
                     <View style={{ marginBottom: 48 }}>
                         <ListItem onPress={() => setHasDuration(t => !t)}>
                             <CheckBox checked={hasDuration} style={{ color: 'red' }} onPress={() => setHasDuration(t => !t)} />
@@ -67,28 +61,10 @@ export default () => {
                         </ListItem>
                     </View>
 
-                    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                        <NumberSpinner
-                            disabled={!hasDuration}
-                            style={{ marginRight: 16 }}
-                            label="Hours"
-                            value={hours}
-                            displayValueConverter={pad}
-                            valueStyle={styles.spinnerValue}
-                            size={48}
-                            onValueUp={() => setHours(t => t < 23 ? t + 1 : 0)}
-                            onValueDown={() => setHours(t => t > 0 ? t - 1 : 23)} />
-                        <NumberSpinner
-                            disabled={!hasDuration}
-                            style={{ marginLeft: 16 }}
-                            label="Minutes"
-                            value={minutes}
-                            valueStyle={styles.spinnerValue}
-                            displayValueConverter={pad}
-                            size={48}
-                            onValueUp={() => setMinutes(t => t < 59 ? t + 1 : 0)}
-                            onValueDown={() => setMinutes(t => t > 0 ? t - 1 : 59)} />
-                    </View>
+                    <TimestampEdit
+                        disabled={!hasDuration}
+                        timestampMs={duration}
+                        onChangeTimestamp={change => setDuration(t => change(t))} />
                 </View>
             </Content>
         </Container>
