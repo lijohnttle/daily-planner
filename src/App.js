@@ -3,7 +3,7 @@ import { Provider as StoreProvider } from 'react-redux';
 import { StatusBar, SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { RootNavigator } from './navigation/root-navigator';
-import { StyleProvider } from 'native-base';
+import { StyleProvider, Root } from 'native-base';
 import getTheme from './theme/components/index';
 import custom from './theme/variables/custom';
 import configureStore from './store/configureStore';
@@ -19,7 +19,9 @@ const App: () => React$Node = () => {
                     
                     <NavigationContainer>
                         <SafeAreaView style={{ flex: 1 }}>
-                            <RootNavigator />
+                            <Root>
+                                <RootNavigator />
+                            </Root>
                         </SafeAreaView>
                     </NavigationContainer>
                 </>

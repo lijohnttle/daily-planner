@@ -4,7 +4,7 @@ import { Header, Body, Title, Left, Button } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { createStackNavigator } from '@react-navigation/stack';
 import variables from '../theme/variables/custom';
-import { DaysListScreen, DayScreen, TaskGroupScreen, TaskMenuScreen, TaskGroupMenuScreen, DurationScreen } from '../scenes/schedule-builder';
+import { DaysListScreen, DayScreen, TaskGroupScreen, DurationScreen } from '../scenes/schedule-builder';
 
 const styles = StyleSheet.create({
     header: {
@@ -76,14 +76,6 @@ export const ScheduleBuilderNavigator = () => {
             <Stack.Screen
                 name={Routes.TaskGroup}
                 component={TaskGroupScreen}
-                options={getScreenOptions(getHeaderWithBackButton)} />
-            <Stack.Screen
-                name={Routes.TaskMenu}
-                component={TaskMenuScreen}
-                options={getScreenOptions(getHeaderWithBackButton)} />
-            <Stack.Screen
-                name={Routes.TaskGroupMenu}
-                component={TaskGroupMenuScreen}
                 options={getScreenOptions(getHeaderWithBackButton)} />
             <Stack.Screen
                 name={Routes.TaskDurationPicker}

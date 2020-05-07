@@ -20,8 +20,7 @@ export default () => {
                             <ButtonListItem
                                 key={day.id}
                                 bottomGutter={index < days.length - 1}
-                                onPress={() => navigation.push(Routes.Day, { day })}
-                                >
+                                onPress={() => navigation.push(Routes.Day, { day })}>
                                 {day.name.toUpperCase()}
                             </ButtonListItem>)}
                     </ScreenSection>

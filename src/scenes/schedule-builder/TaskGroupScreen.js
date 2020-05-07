@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { ScrollView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { Container, Content, View, Button, Icon } from 'native-base';
+import { Container, Content, View } from 'native-base';
 import { useRoute, useNavigation } from '@react-navigation/native';
+import ActionSheet from 'react-native-actionsheet'
 import { ScreenSection, IntervalLarge } from '../../components/medium';
-import { TasksList } from '../../components/scheduleBuilder/taskGroup';
-import { changeTask } from '../../ducks/tasks';
-import { Routes } from '../../navigation/schedule-builder-navigator';
+import { Text } from '../../components/atomic';
+import { TaskEditor } from '../../components/complex';
+import { changeTask, deleteTask } from '../../ducks/tasks';
+import { deleteTaskGroup } from '../../ducks/taskGroups';
+
+const settingsCommands = [
+    { text: 'Delete' },
+    { text: 'Cancel' },
+];
 
 export default () => {
     const route = useRoute();
@@ -15,6 +22,7 @@ export default () => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const tasks = useSelector(state => state.tasks.mapByGroupId[taskGroupId]) || [];
+    const settingsActionSheetRef = useRef();
 
     if (!taskGroup) {
         navigation.pop();
@@ -22,6 +30,8 @@ export default () => {
     }
 
     const handleChangeTask = changes => dispatch(changeTask(changes));
+    const handleDeleteTask = taskId => dispatch(deleteTask(taskId));
+    const handleDeleteTaskGroup = () => dispatch(deleteTaskGroup(taskGroupId));
 
     return (
         <Container>
@@ -32,17 +42,31 @@ export default () => {
                             title="INTERVAL"
                             toolbar={[
                                 {
-                                    icon: 'cog',
-                                    action: () => navigation.push(Routes.TaskGroupMenu, { taskGroupId: taskGroup.id }),
+                                    icon: 'ellipsis-v',
+                                    action: () => settingsActionSheetRef.current.show(),
                                 }
                             ]}>
-                                
+
                             <IntervalLarge intervalFrom={taskGroup.intervalFrom} intervalTo={taskGroup.intervalFrom + taskGroup.duration} />
                         </ScreenSection>
 
                         <ScreenSection title="TASKS">
-                            <TasksList tasks={tasks} onChangeTask={handleChangeTask} />
+                            {tasks.map(task =>
+                                <View key={task.id} style={{ marginBottom: 32 }}>
+                                    <TaskEditor task={task} onChangeTask={handleChangeTask} onDeleteTask={handleDeleteTask} />
+                                </View>)}
                         </ScreenSection>
+
+                        <ActionSheet
+                            ref={settingsActionSheetRef}
+                            title={<Text style={{ color: 'black' }}>Settings</Text>}
+                            options={settingsCommands.map(t => t.text)}
+                            cancelButtonIndex={1}
+                            onPress={(commandIndex) => {
+                                if (commandIndex === 0) {
+                                    handleDeleteTaskGroup();
+                                }
+                            }} />
                     </View>
                 </ScrollView>
             </Content>
