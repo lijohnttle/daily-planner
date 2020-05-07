@@ -9,6 +9,7 @@ import { Text } from '../../components/atomic';
 import { TaskEditor } from '../../components/complex';
 import { changeTask, deleteTask } from '../../ducks/tasks';
 import { deleteTaskGroup } from '../../ducks/taskGroups';
+import { Routes } from '../../navigation/schedule-builder-navigator';
 
 const settingsCommands = [
     { text: 'Delete' },
@@ -47,7 +48,11 @@ export default () => {
                                 }
                             ]}>
 
-                            <IntervalLarge intervalFrom={taskGroup.intervalFrom} intervalTo={taskGroup.intervalFrom + taskGroup.duration} />
+                            <IntervalLarge
+                                intervalFrom={taskGroup.intervalFrom}
+                                duration={taskGroup.duration}
+                                onIntervalFromChange={() => navigation.push(Routes.TaskGroupIntervalFrom, { taskGroupId: taskGroupId })}
+                                onDurationChange={() => navigation.push(Routes.TaskGroupDuration, { taskGroupId: taskGroupId })} />
                         </ScreenSection>
 
                         <ScreenSection title="TASKS">

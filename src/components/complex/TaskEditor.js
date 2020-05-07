@@ -80,7 +80,7 @@ export default ({ task, onChangeTask, onDeleteTask }) => {
                     <ButtonListItem
                         light
                         style={{ justifyContent: 'center' }}
-                        onPress={() => navigation.push(Routes.TaskDurationPicker, { taskId: task.id })}>
+                        onPress={() => navigation.push(Routes.TaskDuration, { taskId: task.id })}>
                         {task.duration ? msToHHmm(task.duration) : '—:—'}
                     </ButtonListItem>
                 </PropertyListItem>

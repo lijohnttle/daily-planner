@@ -15,14 +15,14 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ({ intervalFrom, intervalTo }) => {
+export default ({ intervalFrom, duration, onIntervalFromChange, onDurationChange }) => {
     return (
         <View style={styles.intervalContainer}>
-            <Button warning style={[styles.intervalButton, { marginRight: 1 }]}>
+            <Button warning style={[styles.intervalButton, { marginRight: 1 }]} onPress={onIntervalFromChange}>
                 <TimestampLarge timestampMs={intervalFrom} label="From" />
             </Button>
-            <Button warning style={[styles.intervalButton, { marginLeft: 1 }]}>
-                <TimestampLarge timestampMs={intervalTo} label="To" />
+            <Button warning style={[styles.intervalButton, { marginLeft: 1 }]} onPress={onDurationChange}>
+                <TimestampLarge timestampMs={duration} label="Duration" />
             </Button>
         </View>
     );

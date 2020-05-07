@@ -4,7 +4,7 @@ import { Header, Body, Title, Left, Button } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { createStackNavigator } from '@react-navigation/stack';
 import variables from '../theme/variables/custom';
-import { DaysListScreen, DayScreen, TaskGroupScreen, DurationScreen } from '../scenes/schedule-builder';
+import { DaysListScreen, DayScreen, TaskGroupScreen, TaskDurationScreen, TaskGroupIntervalFromScreen, TaskGroupDurationScreen } from '../scenes/schedule-builder';
 
 const styles = StyleSheet.create({
     header: {
@@ -18,7 +18,9 @@ export const Routes = {
     TaskGroup: 'TaskGroup',
     TaskMenu: 'TaskMenu',
     TaskGroupMenu: 'TaskGroupMenu',
-    TaskDurationPicker: 'TaskDurationPicker',
+    TaskDuration: 'TaskDuration',
+    TaskGroupIntervalFrom: 'TaskGroupIntervalFrom',
+    TaskGroupDuration: 'TaskGroupDuration',
 };
 
 const Stack = createStackNavigator();
@@ -78,8 +80,16 @@ export const ScheduleBuilderNavigator = () => {
                 component={TaskGroupScreen}
                 options={getScreenOptions(getHeaderWithBackButton)} />
             <Stack.Screen
-                name={Routes.TaskDurationPicker}
-                component={DurationScreen}
+                name={Routes.TaskDuration}
+                component={TaskDurationScreen}
+                options={getScreenOptions(getHeaderWithBackButton)} />
+            <Stack.Screen
+                name={Routes.TaskGroupIntervalFrom}
+                component={TaskGroupIntervalFromScreen}
+                options={getScreenOptions(getHeaderWithBackButton)} />
+            <Stack.Screen
+                name={Routes.TaskGroupDuration}
+                component={TaskGroupDurationScreen}
                 options={getScreenOptions(getHeaderWithBackButton)} />
         </Stack.Navigator>
     );

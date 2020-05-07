@@ -1,6 +1,7 @@
 import data from '../data.json';
 import { getMapById, getGroupsBy } from '../utils/mapHelper'
 
+export const CHANGE_TASK_GROUP = 'CHANGE_TASK_GROUP';
 export const DELETE_TASK_GROUP = 'DELETE_TASK_GROUP';
 
 
@@ -13,21 +14,63 @@ initialState.mapByDayId = getGroupsBy(initialState.list, 'dayId');
 
 export const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case CHANGE_TASK_GROUP:
+            {
+                const changes = action.payload.changes;
+                const taskGroupId = changes.id;
+                const oldTaskGroup = state.mapById[taskGroupId];
+
+                if (!oldTaskGroup) {
+                    return state;
+                }
+
+                const newTaskGroup = {
+                    ...oldTaskGroup,
+                    ...changes,
+                };
+
+                const newState = {
+                    ...state,
+                    list: state.list.map(taskGroup => taskGroup.id === taskGroupId ? newTaskGroup : taskGroup),
+                    mapById: {
+                        ...state.mapById,
+                        [newTaskGroup.id]: newTaskGroup,
+                    },
+                    mapByDayId: {
+                        ...state.mapByDayId,
+                        [newTaskGroup.dayId]: state.mapByDayId[newTaskGroup.dayId].map(taskGroup => taskGroup.id === taskGroupId ? newTaskGroup : taskGroup),
+                    },
+                };
+
+                return newState;
+            }
+
         case DELETE_TASK_GROUP:
-            const taskGroupId = action.payload.taskGroupId;
+            {
+                const taskGroupId = action.payload.taskGroupId;
 
-            const newState = {
-                ...state,
-                list: state.list.filter(t => t.id !== taskGroupId),
-            };
+                const newState = {
+                    ...state,
+                    list: state.list.filter(t => t.id !== taskGroupId),
+                };
 
-            newState.mapById = getMapById(newState.list);
-            newState.mapByDayId = getGroupsBy(newState.list, 'dayId');
+                newState.mapById = getMapById(newState.list);
+                newState.mapByDayId = getGroupsBy(newState.list, 'dayId');
 
-            return newState;
-
+                return newState;
+            }
+    
         default:
             return state;
+    }
+};
+
+export const changeTaskGroup = (changes) => {
+    return {
+        type: CHANGE_TASK_GROUP,
+        payload: {
+            changes: changes
+        }
     }
 };
 

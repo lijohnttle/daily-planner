@@ -3,9 +3,9 @@ import { StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Content, View, Text, CheckBox, ListItem, Body } from 'native-base';
 import { useRoute } from '@react-navigation/native';
-import { TimestampEdit } from '../../components/medium';
+import { TimestampEditor } from '../../components/medium';
 import { useDebouncer } from '../../utils/debounce';
-import { changeTask } from '../../ducks/tasks';
+import { changeTaskGroup } from '../../ducks/taskGroups';
 
 const styles = StyleSheet.create({
     root: {
@@ -17,11 +17,10 @@ const styles = StyleSheet.create({
 
 export default () => {
     const route = useRoute();
-    const taskId = route.params['taskId'];
-    const taskDuration = useSelector(state => state.tasks.mapById[taskId].duration);
+    const taskGroupId = route.params['taskGroupId'];
+    const durationMs = useSelector(state => state.taskGroups.mapById[taskGroupId].duration);
     const dispatch = useDispatch();
-    const [duration, setDuration] = useState(taskDuration ? taskDuration : 0);
-    const [hasDuration, setHasDuration] = useState(!!taskDuration);
+    const [duration, setDuration] = useState(durationMs);
     const [shouldSave, setShouldSave] = useState(false);
     const saveDebouncer = useDebouncer(() => setShouldSave(true), 300);
     const loaded = useRef(false);
@@ -33,18 +32,13 @@ export default () => {
         else {
             loaded.current = true;
         }
-    }, [duration, hasDuration]);
+    }, [duration]);
 
     useEffect(() => {
         if (shouldSave) {
             setShouldSave(false);
 
-            if (hasDuration) {
-                dispatch(changeTask({ id: taskId, duration: duration }));
-            }
-            else {
-                dispatch(changeTask({ id: taskId, duration: null }));
-            }
+            dispatch(changeTaskGroup({ id: taskGroupId, duration: duration }));
         }
     }, [shouldSave]);
 
@@ -52,17 +46,7 @@ export default () => {
         <Container>
             <Content contentContainerStyle={{ flex: 1 }}>
                 <View style={styles.root}>
-                    <View style={{ marginBottom: 48 }}>
-                        <ListItem onPress={() => setHasDuration(t => !t)}>
-                            <CheckBox checked={hasDuration} style={{ color: 'red' }} onPress={() => setHasDuration(t => !t)} />
-                            <Body>
-                                <Text>Has duration</Text>
-                            </Body>
-                        </ListItem>
-                    </View>
-
-                    <TimestampEdit
-                        disabled={!hasDuration}
+                    <TimestampEditor
                         timestampMs={duration}
                         onChangeTimestamp={change => setDuration(t => change(t))} />
                 </View>
