@@ -4,11 +4,7 @@ import { ActiveTasksScreen } from '../scenes/home/ActiveTasksScreen';
 import { ScheduleBuilderNavigator } from './schedule-builder-navigator';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import variables from '../theme/variables/custom';
-
-export const Routes = {
-    ActiveTasks: 'ActiveTasks',
-    ScheduleBuilder: 'ScheduleBuilder',
-};
+import Routes from './root-routes';
 
 const Drawer = createDrawerNavigator();
 
@@ -31,7 +27,7 @@ export const RootNavigator = () => {
                 component={ActiveTasksScreen}
                 options={{
                     drawerIcon: ({ size, color }) => <Icon name="home" size={size} color={color} />,
-                    title: 'HOME'
+                    title: 'HOME',
                 }} />
             <Drawer.Screen
                 name={Routes.ScheduleBuilder}

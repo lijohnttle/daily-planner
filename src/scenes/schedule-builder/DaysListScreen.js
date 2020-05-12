@@ -5,7 +5,7 @@ import { Container, Content } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 import { ButtonListItem } from '../../components/atomic';
 import { ScreenSection } from '../../components/medium';
-import { Routes } from '../../navigation/schedule-builder-navigator';
+import Routes from '../../navigation/schedule-builder-routes';
 
 export default () => {
     const days = useSelector(state => state.days.list);

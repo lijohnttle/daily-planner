@@ -1,12 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { StyleSheet } from 'react-native';
 import { View, Input, Button, Icon } from 'native-base';
 import ActionSheet from 'react-native-actionsheet';
 import { useNavigation } from '@react-navigation/native';
 import { ButtonListItem, Text } from '../atomic';
 import { PropertyList, PropertyListItem } from '../medium';
-import { Routes } from '../../navigation/schedule-builder-navigator';
+import Routes from '../../navigation/schedule-builder-routes';
 import variables from '../../theme/variables/custom';
 import { msToHHmm } from '../../utils/dateTimeHelper';
 import { useDebouncer } from '../../utils/debounce';
@@ -19,8 +18,9 @@ const styles = StyleSheet.create({
         backgroundColor: variables.brandLight,
         elevation: 2,
     },
-    settingsButton: {
+    toolbarButton: {
         marginLeft: 2,
+        marginBottom: 2,
         elevation: 0,
     },
 });
@@ -36,7 +36,7 @@ const settingsCommands = [
     { text: 'Cancel' },
 ];
 
-export default ({ task, onChangeTask, onDeleteTask }) => {
+export default ({ task, canMoveUp, canMoveDown, onChangeTask, onDeleteTask, onMoveUp, onMoveDown }) => {
     const [taskName, setTaskName] = useState(task.name);
     const [shouldSaveName, setShouldSaveName] = useState(false);
     const navigation = useNavigation();
@@ -66,12 +66,28 @@ export default ({ task, onChangeTask, onDeleteTask }) => {
         <View>
             <PropertyList
                 toolbar={
-                    <Button
-                        dark
-                        style={styles.settingsButton}
-                        onPress={() => settingsActionSheetRef.current.show() /*navigation.push(Routes.TaskMenu, { taskId: task.id })*/}>
-                        <Icon type="FontAwesome" name="ellipsis-v" style={{ color: variables.textColor, fontSize: 16 }} />
-                    </Button>
+                    <View>
+                        <Button
+                            dark
+                            style={styles.toolbarButton}
+                            onPress={() => settingsActionSheetRef.current.show()}>
+                            <Icon type="FontAwesome" name="ellipsis-v" style={{ color: variables.textColor, fontSize: 16 }} />
+                        </Button>
+                        <Button
+                            dark
+                            disabled={!canMoveUp}
+                            style={styles.toolbarButton}
+                            onPress={() => onMoveUp(task.id)}>
+                            <Icon type="FontAwesome" name="angle-up" style={{ color: variables.textColor, fontSize: 16 }} />
+                        </Button>
+                        <Button
+                            dark
+                            disabled={!canMoveDown}
+                            style={styles.toolbarButton}
+                            onPress={() => onMoveDown(task.id)}>
+                            <Icon type="FontAwesome" name="angle-down" style={{ color: variables.textColor, fontSize: 16 }} />
+                        </Button>
+                    </View>
                 }>
                 <PropertyListItem label="Name:">
                     <Input style={styles.nameInput} placeholder="Name" onChange={e => setTaskName(e.nativeEvent.text)} value={taskName} />

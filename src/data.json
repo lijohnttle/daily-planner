@@ -51,35 +51,40 @@
             "name": "Study: Heavy Misc.",
             "duration": 4500000,
             "priority": "high",
-            "groupId": "1"
+            "groupId": "1",
+            "order": 0
         },
         {
             "id": "2",
             "name": "Meditation",
             "duration": 900000,
             "priority": "high",
-            "groupId": "1"
+            "groupId": "1",
+            "order": 0
         },
         {
             "id": "3",
             "name": "Language",
             "duration": 1800000,
             "priority": "high",
-            "groupId": "1"
+            "groupId": "1",
+            "order": 0
         },
         {
             "id": "4",
             "name": "Breakfast",
             "duration": null,
             "priority": "high",
-            "groupId": "1"
+            "groupId": "1",
+            "order": 0
         },
         {
             "id": "5",
             "name": "Recreation",
             "duration": null,
             "priority": "optional",
-            "groupId": "1"
+            "groupId": "1",
+            "order": 0
         }
     ]
 }

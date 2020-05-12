@@ -5,7 +5,7 @@ import { Container, Content, View } from 'native-base';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { ButtonListItem, Timestamp } from '../../components/atomic';
 import { ScreenSection } from '../../components/medium';
-import { Routes } from '../../navigation/schedule-builder-navigator';
+import Routes from '../../navigation/schedule-builder-routes';
 
 export default () => {
     const route = useRoute();

@@ -5,23 +5,13 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { createStackNavigator } from '@react-navigation/stack';
 import variables from '../theme/variables/custom';
 import { DaysListScreen, DayScreen, TaskGroupScreen, TaskDurationScreen, TaskGroupIntervalFromScreen, TaskGroupDurationScreen } from '../scenes/schedule-builder';
+import Routes from './schedule-builder-routes';
 
 const styles = StyleSheet.create({
     header: {
         borderBottomWidth: 1
     },
 });
-
-export const Routes = {
-    DaysList: 'DaysList',
-    Day: 'TaskGroupsList',
-    TaskGroup: 'TaskGroup',
-    TaskMenu: 'TaskMenu',
-    TaskGroupMenu: 'TaskGroupMenu',
-    TaskDuration: 'TaskDuration',
-    TaskGroupIntervalFrom: 'TaskGroupIntervalFrom',
-    TaskGroupDuration: 'TaskGroupDuration',
-};
 
 const Stack = createStackNavigator();
 
