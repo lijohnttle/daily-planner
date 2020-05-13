@@ -1,10 +1,11 @@
 import data from '../data.json';
 import { getMapById, getGroupsBy } from '../utils/mapHelper'
 
-const CHANGE_TASK = 'CHANGE_TASK';
-const DELETE_TASK = 'DELETE_TASK';
-const MOVE_TASK_UP = 'MOVE_TASK_UP';
-const MOVE_TASK_DOWN = 'MOVE_TASK_DOWN';
+export const ADD_TASK = 'ADD_TASK';
+export const CHANGE_TASK = 'CHANGE_TASK';
+export const DELETE_TASK = 'DELETE_TASK';
+export const MOVE_TASK_UP = 'MOVE_TASK_UP';
+export const MOVE_TASK_DOWN = 'MOVE_TASK_DOWN';
 
 
 const updateOrders = (taskList) => {
@@ -30,6 +31,43 @@ initialState.mapByGroupId = getGroupsBy(initialState.list, 'groupId');
 
 export const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case ADD_TASK:
+            {
+console.log('add');
+
+                const newTask = {
+                    id: state.list.reduce((maxId, task) => Math.max(maxId, task.id), -1) + 1,
+                    name: 'New Task',
+                    duration: null,
+                    priority: 'high',
+                    groupId: action.payload.taskGroupId,
+                    order: 0,
+                };
+
+                newTask.order = state.mapByGroupId[newTask.groupId]
+                    .reduce((maxOrder, task) => Math.max(maxOrder, task.order), -1) + 1;
+
+                const newState = {
+                    list: [
+                        ...state.list,
+                        newTask,
+                    ],
+                    mapById: {
+                        ...state.mapById,
+                        [newTask.id]: newTask,
+                    },
+                    mapByGroupId: {
+                        ...state.mapByGroupId,
+                        [newTask.groupId]: [
+                            ...state.mapByGroupId[newTask.groupId],
+                            newTask,
+                        ],
+                    },
+                };
+
+                return newState;
+            }
+
         case CHANGE_TASK:
             {
                 const changes = action.payload.changes;
@@ -153,6 +191,15 @@ export const moveTaskDown = taskId => {
         type: MOVE_TASK_DOWN,
         payload: {
             taskId: taskId
+        }
+    }
+};
+
+export const addTask = (taskGroupId) => {
+    return {
+        type: ADD_TASK,
+        payload: {
+            taskGroupId,
         }
     }
 };

@@ -1,14 +1,13 @@
-import React, { useRef } from 'react';
-import { ScrollView } from 'react-native';
+import React, { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Container, Content, View } from 'native-base';
+import { Container, Content, View, Button, Icon } from 'native-base';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import ActionSheet from 'react-native-actionsheet'
 import { ScreenSection, IntervalLarge } from '../../components/medium';
-import { Text } from '../../components/atomic';
+import { Text, AddButton } from '../../components/atomic';
 import { TaskEditor } from '../../components/complex';
 import variables from '../../theme/variables/custom';
-import { changeTask, deleteTask, moveTaskUp, moveTaskDown } from '../../ducks/tasks';
+import { changeTask, deleteTask, moveTaskUp, moveTaskDown, addTask } from '../../ducks/tasks';
 import { deleteTaskGroup } from '../../ducks/taskGroups';
 import Routes from '../../navigation/schedule-builder-routes';
 
@@ -23,27 +22,46 @@ export default () => {
     const taskGroup = useSelector(state => state.taskGroups.mapById[taskGroupId]);
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    const tasks = (useSelector(state => state.tasks.mapByGroupId[taskGroupId]) || []).sort((task1, task2) => task1.order - task2.order);
+    const tasks = useSelector(state => (state.tasks.mapByGroupId[taskGroupId] || []).sort((task1, task2) => task1.order - task2.order));
+    const [loaded, setLoaded] = useState(false);
+    const [maxTaskId, setMaxTaskId] = useState(-1);
     const settingsActionSheetRef = useRef();
+    const contentElementRef = useRef();
+
+    useEffect(() => {
+        if (!loaded) {
+            setLoaded(true);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (loaded && contentElementRef.current) {
+            const newMaxTaskId = tasks.reduce((maxId, task) => Math.max(maxId, task.id), -1);
+
+            if (maxTaskId < newMaxTaskId) {
+                setMaxTaskId(newMaxTaskId);
+
+                contentElementRef.current._root.scrollToEnd();
+            }
+        }
+    }, [tasks]);
 
     if (!taskGroup) {
         navigation.pop();
         return null;
     }
 
-    tasks.forEach(t => console.log(t.name));
-    console.log("")
-
     const handleChangeTask = (changes) => dispatch(changeTask(changes));
     const handleDeleteTask = (taskId) => dispatch(deleteTask(taskId));
     const handleDeleteTaskGroup = () => dispatch(deleteTaskGroup(taskGroupId));
     const handleMoveTaskUp = (taskId) => dispatch(moveTaskUp(taskId));
     const handleMoveTaskDown = (taskId) => dispatch(moveTaskDown(taskId));
+    const handleAddTask = () => dispatch(addTask(taskGroupId));
 
     return (
         <Container>
-            <Content>
-                <ScrollView contentInsetAdjustmentBehavior="automatic">
+            <View style={{ flex: 1 }}>
+                <Content ref={t => contentElementRef.current = t}>
                     <View>
                         <ScreenSection
                             title="INTERVAL"
@@ -86,8 +104,10 @@ export default () => {
                                 }
                             }} />
                     </View>
-                </ScrollView>
-            </Content>
+                </Content>
+
+                <AddButton action={handleAddTask} />
+            </View>
         </Container>
     );
 };
