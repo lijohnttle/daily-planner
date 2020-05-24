@@ -7,62 +7,23 @@ export const DELETE_TASK = 'DELETE_TASK';
 export const MOVE_TASK_UP = 'MOVE_TASK_UP';
 export const MOVE_TASK_DOWN = 'MOVE_TASK_DOWN';
 
-
-const updateOrders = (taskList) => {
-    const orderedTaskList = taskList.sort((task1, task2) => task1.order - task2.order);
-
-    orderedTaskList.forEach((task, index) => {
-        task.order = index;
-    });
-};
-
-const initialState = {
-    list: data.tasks,
-};
-
-initialState.mapById = getMapById(initialState.list);
-initialState.mapByGroupId = getGroupsBy(initialState.list, 'groupId');
-
-(function updateOrdersForAllTasks() {
-    for (let taskGroupId in initialState.mapByGroupId) {
-        updateOrders(initialState.mapByGroupId[taskGroupId]);
-    }
-})();
-
-export const reducer = (state = initialState, action) => {
+export const reducer = (state = populateInitialState(data), action) => {
     switch (action.type) {
         case ADD_TASK:
             {
-console.log('add');
-
                 const newTask = {
-                    id: state.list.reduce((maxId, task) => Math.max(maxId, task.id), -1) + 1,
+                    id: (state.list || []).reduce((maxId, task) => Math.max(maxId, task.id), -1) + 1,
                     name: 'New Task',
                     duration: null,
                     priority: 'high',
                     groupId: action.payload.taskGroupId,
-                    order: 0,
+                    order: -1,
                 };
 
-                newTask.order = state.mapByGroupId[newTask.groupId]
-                    .reduce((maxOrder, task) => Math.max(maxOrder, task.order), -1) + 1;
-
                 const newState = {
-                    list: [
-                        ...state.list,
-                        newTask,
-                    ],
-                    mapById: {
-                        ...state.mapById,
-                        [newTask.id]: newTask,
-                    },
-                    mapByGroupId: {
-                        ...state.mapByGroupId,
-                        [newTask.groupId]: [
-                            ...state.mapByGroupId[newTask.groupId],
-                            newTask,
-                        ],
-                    },
+                    list: replaceTaskInList(newTask.id, newTask, state.list || []),
+                    mapById: replaceTaskInMapById(newTask.id, newTask, state.mapById || { }),
+                    mapByGroupId: replaceTaskInGroup(newTask.id, newTask, newTask.groupId, state.mapByGroupId || { }),
                 };
 
                 return newState;
@@ -84,15 +45,9 @@ console.log('add');
                 };
 
                 const newState = {
-                    list: state.list.map(task => task.id === taskId ? newTask : task),
-                    mapById: {
-                        ...state.mapById,
-                        [newTask.id]: newTask,
-                    },
-                    mapByGroupId: {
-                        ...state.mapByGroupId,
-                        [newTask.groupId]: state.mapByGroupId[newTask.groupId].map(task => task.id === taskId ? newTask : task),
-                    },
+                    list: replaceTaskInList(taskId, newTask, state.list),
+                    mapById: replaceTaskInMapById(taskId, newTask, state.mapById),
+                    mapByGroupId: replaceTaskInGroup(taskId, newTask, newTask.groupId, state.mapByGroupId),
                 };
 
                 return newState;
@@ -102,19 +57,12 @@ console.log('add');
             {
                 const taskId = action.payload.taskId;
                 const task = state.mapById[taskId];
-                const taskGroupId = task.groupId;
 
                 const newState = {
-                    ...state,
-                    list: state.list.filter(t => t.id !== taskId),
+                    list: replaceTaskInList(taskId, null, state.list),
+                    mapById: replaceTaskInMapById(taskId, null, state.mapById),
+                    mapByGroupId: replaceTaskInGroup(taskId, null, task.groupId, state.mapByGroupId),
                 };
-
-                // update mappings
-                delete newState.mapById[task.id];
-
-                let tasksWithingGroup = newState.mapByGroupId[taskGroupId].filter(t => t.id !== taskId);
-                updateOrders(tasksWithingGroup);
-                newState.mapByGroupId[taskGroupId] = tasksWithingGroup;
 
                 return newState;
             }
@@ -146,9 +94,7 @@ console.log('add');
                     swapTask.order = task.order;
                     task.order = newOrder;
 
-                    newState.mapByGroupId[taskGroupId] = [
-                        ...tasksWithinGroup
-                    ];
+                    newState.mapByGroupId[taskGroupId] = updateOrders(tasksWithinGroup);
                 }
                 
                 return newState;
@@ -203,3 +149,85 @@ export const addTask = (taskGroupId) => {
         }
     }
 };
+
+function populateInitialState(data) {
+    const state = { };
+    state.list = data.tasks;
+    state.mapById = getMapById(state.list);
+    state.mapByGroupId = getGroupsBy(state.list, 'groupId');
+
+    // update orders
+    for (let taskGroupId in state.mapByGroupId) {
+        state.mapByGroupId[taskGroupId] = updateOrders(state.mapByGroupId[taskGroupId]);
+    }
+
+    return state;
+};
+
+function updateOrders(taskList) {
+    return taskList
+        .sort((task1, task2) => {
+            if (task1.order === -1) {
+                if (task2.order === -1) {
+                    return 0;
+                }
+
+                return 1;
+            }
+
+            if (task2.order === -1) {
+                return -1;
+            }
+
+            return task1.order - task2.order;
+        })
+        .map((task, index) => {
+            task.order = index;
+            return task;
+        });
+};
+
+function replaceTaskInList(taskId, newTask, list) {
+    // exclude old value
+    const result = list.filter(task => task.id !== taskId);
+
+    if (newTask) {
+        // push new value
+        result.push(newTask);
+    }
+
+    return result;
+}
+
+function replaceTaskInMapById(taskId, newTask, map) {
+    // exclude old value
+    const result = Object
+        .keys(map)
+        .filter(t => t !== taskId)
+        .reduce((result, id) => {
+            result[id] = map[id];
+            return result;
+        }, { });
+
+    if (newTask) {
+        result[taskId] = newTask;
+    }
+
+    return result;
+}
+
+function replaceTaskInGroup(taskId, newTask, taskGroupId, mapTaskGroupById) {
+    const newMap = Object
+        .keys(mapTaskGroupById)
+        .filter(taskGroup => taskGroup.id !== taskGroupId);
+    
+    let newTaskGroup = (mapTaskGroupById[taskGroupId] || []).filter(task => task.id !== taskId);
+
+    if (newTask) {
+        newTaskGroup.push(newTask);
+    }
+
+    newMap[taskGroupId] = updateOrders(newTaskGroup);
+
+    return newMap;
+}

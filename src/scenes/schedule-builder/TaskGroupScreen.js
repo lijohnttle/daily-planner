@@ -22,7 +22,7 @@ export default () => {
     const taskGroup = useSelector(state => state.taskGroups.mapById[taskGroupId]);
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    const tasks = useSelector(state => (state.tasks.mapByGroupId[taskGroupId] || []).sort((task1, task2) => task1.order - task2.order));
+    const tasks = useSelector(state => state.tasks.mapByGroupId[taskGroupId] || []);
     const [loaded, setLoaded] = useState(false);
     const [maxTaskId, setMaxTaskId] = useState(-1);
     const settingsActionSheetRef = useRef();
@@ -35,14 +35,17 @@ export default () => {
     }, []);
 
     useEffect(() => {
-        if (loaded && contentElementRef.current) {
-            const newMaxTaskId = tasks.reduce((maxId, task) => Math.max(maxId, task.id), -1);
+        const newMaxTaskId = tasks.reduce((maxId, task) => Math.max(maxId, task.id), -1);
 
+        if (loaded && contentElementRef.current) {
             if (maxTaskId < newMaxTaskId) {
                 setMaxTaskId(newMaxTaskId);
 
                 contentElementRef.current._root.scrollToEnd();
             }
+        }
+        else {
+            setMaxTaskId(newMaxTaskId);
         }
     }, [tasks]);
 

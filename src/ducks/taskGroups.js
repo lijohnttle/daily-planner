@@ -1,6 +1,7 @@
 import data from '../data.json';
 import { getMapById, getGroupsBy } from '../utils/mapHelper'
 
+export const ADD_TASK_GROUP = 'ADD_TASK_GROUP';
 export const CHANGE_TASK_GROUP = 'CHANGE_TASK_GROUP';
 export const DELETE_TASK_GROUP = 'DELETE_TASK_GROUP';
 
@@ -14,6 +15,13 @@ initialState.mapByDayId = getGroupsBy(initialState.list, 'dayId');
 
 export const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case ADD_TASK_GROUP:
+            {
+                const newState = {
+                    ...state,
+                };
+            }
+
         case CHANGE_TASK_GROUP:
             {
                 const changes = action.payload.changes;
@@ -30,7 +38,6 @@ export const reducer = (state = initialState, action) => {
                 };
 
                 const newState = {
-                    ...state,
                     list: state.list.map(taskGroup => taskGroup.id === taskGroupId ? newTaskGroup : taskGroup),
                     mapById: {
                         ...state.mapById,
@@ -54,6 +61,9 @@ export const reducer = (state = initialState, action) => {
                     list: state.list.filter(t => t.id !== taskGroupId),
                 };
 
+                // update mappings
+                delete newState.mapById[taskGroupId];
+
                 newState.mapById = getMapById(newState.list);
                 newState.mapByDayId = getGroupsBy(newState.list, 'dayId');
 
@@ -65,13 +75,22 @@ export const reducer = (state = initialState, action) => {
     }
 };
 
+export const addTaskGroup = (dayId) => {
+    return {
+        type: ADD_TASK_GROUP,
+        payload: {
+            dayId,
+        }
+    };
+};
+
 export const changeTaskGroup = (changes) => {
     return {
         type: CHANGE_TASK_GROUP,
         payload: {
             changes: changes
         }
-    }
+    };
 };
 
 export const deleteTaskGroup = (taskGroupId) => {
@@ -80,5 +99,5 @@ export const deleteTaskGroup = (taskGroupId) => {
         payload: {
             taskGroupId,
         }
-    }
+    };
 };
